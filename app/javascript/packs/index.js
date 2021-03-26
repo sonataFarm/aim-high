@@ -7,18 +7,11 @@ import Rails from "@rails/ujs";
 import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
-import React from 'react';
-import ReactDOM from 'react-dom';
 
-import App from '../components/App';
+import initializeFrontend from '../entry';
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <App />,
-    document.querySelector('#root')
-  );
-});
+initializeFrontend();
