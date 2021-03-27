@@ -6,7 +6,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       log_in!(@user)
-      render json: { message: 'success' }
+      render json: { username: @user.username, email: @user.email }
     else
       render json: ['Bad username/password combo'], status: 401
     end
