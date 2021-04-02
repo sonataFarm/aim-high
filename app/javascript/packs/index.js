@@ -8,6 +8,8 @@ import Turbolinks from "turbolinks";
 import * as ActiveStorage from "@rails/activestorage";
 import "channels";
 
+import 'fontsource-roboto';
+
 import initializeFrontend from '../entry';
 
 Rails.start()
