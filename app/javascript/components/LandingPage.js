@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 
 import Modal from './Modal';
 
+=======
+import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
+>>>>>>> 6cb63ce06cbf8f9bd920b2144fcdd5e828e2556c
 
 const useStyles = makeStyles({
   container: {
@@ -31,9 +36,12 @@ const useStyles = makeStyles({
 const LandingPage = () => {
   const classes = useStyles();
 
+<<<<<<< HEAD
   const [ loginModalOpen, setLoginModalOpen ] = useState(false);
   const [ signupModalOpen, setSignupModalOpen ] = useState(false);
 
+=======
+>>>>>>> 6cb63ce06cbf8f9bd920b2144fcdd5e828e2556c
   return (
     <div className={classes.container}>
       <Grid container style={{ height: '100%' }}>
@@ -54,6 +62,7 @@ const LandingPage = () => {
             <Typography variant="h1" align="center">Aim For the Stars.</Typography>
           </div>
             <Grid item container justify="center" spacing={8} className={classes.mainBtnContainer}>
+<<<<<<< HEAD
               <Grid item>
                 <Button 
                   variant="contained" 
@@ -95,6 +104,14 @@ const LandingPage = () => {
       >
         Register!
       </Modal>
+=======
+              <Grid item><Button variant="contained" color="primary" size="large" className={classes.button}>Log in</Button></Grid>
+              <Grid item><Button variant="contained" color="secondary" size="large" className={classes.button}>Sign Up</Button></Grid>f
+            </Grid>
+          <Grid item xs={2} />
+        </Grid>
+      </Grid>
+>>>>>>> 6cb63ce06cbf8f9bd920b2144fcdd5e828e2556c
     </div>
   );
 };
