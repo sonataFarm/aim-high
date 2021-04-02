@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import { logIn, logOut } from '../actions/session-actions';
+import LandingPage from './LandingPage';
 
 const App = ({ currentUser, logIn, logOut }) => {
   const loggedIn = !!currentUser;
@@ -20,10 +21,7 @@ const App = ({ currentUser, logIn, logOut }) => {
 
   return (
     <div>
-      <div>{msg}</div>
-      <button onClick={() => handleClick()}>
-        {loggedIn ? "Log Out" : "Log In"}
-      </button>
+      <LandingPage />
     </div>
   );
 }
