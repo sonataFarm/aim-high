@@ -5,6 +5,13 @@ export const
   REMOVE_CURRENT_USER = 'REMOVE_CURRENT_USER',
   RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
+export const register = user => dispatch => {
+  api.register(user).then(
+    res => dispatch(receiveCurrentUser(res.data)),
+    err => { dispatch(receiveSessionErrors(err.response.data)) }
+  );
+};
+
 export const logIn = user => dispatch => {
   api.logIn(user).then(
     res => dispatch(receiveCurrentUser(res.data)),
@@ -17,7 +24,7 @@ export const logOut = user => dispatch => {
     res => dispatch(removeCurrentUser()),
     err => console.log(err)
   );
-}
+};
 
 export const receiveCurrentUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
@@ -31,4 +38,4 @@ export const removeCurrentUser = () => ({
 export const receiveSessionErrors = errors => ({
   type: RECEIVE_SESSION_ERRORS,
   payload: errors
-})
+});

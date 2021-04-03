@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 
 import Modal from './Modal';
 import LoginForm from './LoginForm';
-import { logIn } from '../actions/session-actions'; 
+import RegisterForm from './RegisterForm';
 
 const useStyles = makeStyles({
   container: {
@@ -94,7 +93,7 @@ const LandingPage = () => {
         onClose={() => setSignupModalOpen(false)}
         title="Register"
       >
-        Register!
+        <RegisterForm />
       </Modal>
     </div>
   );

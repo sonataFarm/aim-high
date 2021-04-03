@@ -5,14 +5,19 @@ const instance = axios.create({
 });
 
 const logIn = user => (
-  instance.post('session', { user: user })
+  instance.post('session', { user })
 );
 
 const logOut = () => (
   instance.delete('session')
-)
+);
+
+const register = user => (
+  instance.post('users', { user })
+);
 
 export default {
   logIn,
-  logOut
+  logOut,
+  register
 };
