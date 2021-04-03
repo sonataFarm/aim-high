@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button, Divider, TextField, Typography, withStyles } from '@material-ui/core';
 
+import { connect } from 'react-redux';
+import { logIn } from '../actions/session-actions';
+
 const styles = {
   formContainer: {
     display: 'flex',
@@ -23,6 +26,8 @@ class LoginForm extends React.Component {
       this.setState({ errors });
       return;
     }
+
+    this.props.logIn({ username: this.state.username, password: this.state.password });
   }
 
   handleUsernameChange = e => {
@@ -42,11 +47,17 @@ class LoginForm extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors.length) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   render() {
-    const errMsgs = this.state.errors.map((err) => (<Typography color="error">{err}</Typography>))
+    const errMsgs = this.state.errors.map((err, idx) => (<Typography key={idx} color="error">{err}</Typography>))
     return (
       <React.Fragment>
-        <Typography color="error">{errMsgs}</Typography>
+        {errMsgs}
         <form className={this.props.classes.formContainer}>
           <TextField 
             id="username" 
@@ -83,4 +94,14 @@ class LoginForm extends React.Component {
   }
 }
 
-export default withStyles(styles)(LoginForm);
+const mapStateToProps = state => ({
+  errors: state.session.errors
+});
+
+const mapDispatchToProps = dispatch => ({
+  logIn: (user) => dispatch(logIn(user))
+})
+
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+);

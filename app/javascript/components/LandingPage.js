@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 
 import Modal from './Modal';
 import LoginForm from './LoginForm';
+import { logIn } from '../actions/session-actions'; 
 
 const useStyles = makeStyles({
   container: {
