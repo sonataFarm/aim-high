@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 
 import Modal from './Modal';
+import LoginForm from './LoginForm';
 
 const useStyles = makeStyles({
   container: {
@@ -76,7 +77,6 @@ const LandingPage = () => {
                 </Button>
               </Grid>f
             </Grid>
-            <Modal btnText="Log In" ></Modal>
           <Grid item xs={2} />
         </Grid>
       </Grid>
@@ -85,7 +85,7 @@ const LandingPage = () => {
         onClose={() => setLoginModalOpen(false)}
         title="Log In"
       >
-        Log in!
+        <LoginForm />
       </Modal>
       <Modal
         open={signupModalOpen}

@@ -3,11 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import MuiModal from '@material-ui/core/Modal';
 import { Button, Divider, Typography } from '@material-ui/core';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
@@ -29,7 +24,7 @@ const Modal = ({ open, onClose, title, children }) => {
 
   const body = (
     <div className={`${classes.paper} ${classes.modal}`}>
-      <Typography variant="h4">Modal Title</Typography>
+      <Typography variant="h4">{title}</Typography>
       {children}
     </div>
   );
