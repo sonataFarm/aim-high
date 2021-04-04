@@ -4,10 +4,18 @@ import Root from './components/Root';
 import configureStore from './store/store';
 
 export default () => {
-  const store = configureStore();
-  window.store = store;
-
   document.addEventListener('DOMContentLoaded', () => {
+    let preloadedState = {};
+    
+    if (window.prefetchedData) {
+      const { currentUser } = window.prefetchedData;
+      preloadedState = {
+        session: { currentUser }
+      };
+    }
+
+    const store = configureStore(preloadedState);
+
     ReactDOM.render(
       <Root store={store} />,
       document.querySelector('#root')

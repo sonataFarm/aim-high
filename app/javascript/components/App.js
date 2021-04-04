@@ -1,38 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { Switch } from 'react-router-dom';
 
-import { logIn, logOut } from '../actions/session-actions';
+import HomePage from './HomePage';
 import LandingPage from './LandingPage';
+import { AuthRoute, ProtectedRoute } from './Routes';
 
-const App = ({ currentUser, logIn, logOut }) => {
-  const loggedIn = !!currentUser;
-  const msg = loggedIn ?
-    `Welcome back, ${currentUser.username}!` :
-    'No one logged in.'
-
-  const handleClick = () => {
-    if (!loggedIn) {
-      logIn({ username: 'sonataFarm', password: 123456 });
-    } else {
-      logOut();
-    }
-  }
-
+const App = () => {
   return (
     <div>
-      <LandingPage />
+      <Switch>
+        <AuthRoute path="/login" component={LandingPage} />
+        <ProtectedRoute path="/" component={HomePage} />
+      </Switch>
     </div>
   );
-}
+};
 
-const mapStateToProps = state => ({
-  currentUser: state.session.currentUser
-})
-
-const mapDispatchToProps = dispatch => ({
-  logIn: user => dispatch(logIn(user)),
-  logOut: () => dispatch(logOut())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

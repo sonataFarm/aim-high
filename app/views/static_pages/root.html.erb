@@ -1,1 +1,15 @@
+<% if logged_in? %>
+  <script type="text/javascript">
+    prefetchedData = {};
+    prefetchedData.currentUser = <%= 
+      render(
+        "api/users/current_user.json.jbuilder",
+        user: current_user  
+      ).html_safe 
+    %>
+
+    window.prefetchedData = prefetchedData;
+  </script>
+<% end %>
+
 <div id="root"></div>
