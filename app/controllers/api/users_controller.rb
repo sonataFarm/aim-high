@@ -6,7 +6,7 @@ class Api::UsersController < ApplicationController
 
     if @user.save
       log_in!(@user)
-      render json: { username: @user.username, email: @user.email }
+      render 'api/users/current_user.json.jbuilder'
     else
       render json: @user.errors.full_messages, status: 422
     end

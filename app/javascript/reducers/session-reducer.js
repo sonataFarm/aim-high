@@ -10,7 +10,7 @@ const SessionReducer = (state = _nullSession, action) => {
     case RECEIVE_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: action.payload.user,
         errors: []
       };
     case REMOVE_CURRENT_USER:

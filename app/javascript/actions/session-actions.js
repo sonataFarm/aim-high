@@ -8,14 +8,14 @@ export const
 export const register = user => dispatch => {
   api.register(user).then(
     res => dispatch(receiveCurrentUser(res.data)),
-    err => { dispatch(receiveSessionErrors(err.response.data)) }
+    err => dispatch(receiveSessionErrors(err.response.data))
   );
 };
 
 export const logIn = user => dispatch => {
   api.logIn(user).then(
     res => dispatch(receiveCurrentUser(res.data)),
-    err => { dispatch(receiveSessionErrors(err.response.data)) }
+    err => dispatch(receiveSessionErrors(err.response.data))
   );
 };
 
@@ -26,9 +26,9 @@ export const logOut = user => dispatch => {
   );
 };
 
-export const receiveCurrentUser = (user) => ({
+export const receiveCurrentUser = (data) => ({
   type: RECEIVE_CURRENT_USER,
-  payload: user
+  payload: data
 });
 
 export const removeCurrentUser = () => ({
