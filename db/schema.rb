@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_21_011909) do
+ActiveRecord::Schema.define(version: 2021_04_04_232257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,4 +27,17 @@ ActiveRecord::Schema.define(version: 2021_03_21_011909) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "visions", force: :cascade do |t|
+    t.string "name"
+    t.string "nickname"
+    t.text "description"
+    t.text "motivation"
+    t.text "impact"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_visions_on_user_id"
+  end
+
+  add_foreign_key "visions", "users"
 end

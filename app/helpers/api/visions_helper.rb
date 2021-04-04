@@ -1,0 +1,2 @@
+module Api::VisionsHelper
+end
