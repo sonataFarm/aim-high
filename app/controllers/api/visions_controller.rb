@@ -21,11 +21,10 @@ class Api::VisionsController < ApplicationController
 
   def update
     @vision = Vision.find_by_id(params[:id])
-
     if !@vision
       render json: ["Vision not found"], status: 404
     else
-      if @vision.update(vision_params)
+      if @vision.update(vision_params.except(:user_id))
         render 'api/visions/show.json.jbuilder'
       else
         render json: @vision.errors.full_messages, status: 422

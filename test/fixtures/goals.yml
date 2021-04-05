@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nickname: MyString
+  description: MyText
+  motivation: MyText
+  impact: MyText
+  strategy: MyText
+  deadline: 2021-04-04
+  evidence: MyText
+  satisfaction: MyText
+
+two:
+  nickname: MyString
+  description: MyText
+  motivation: MyText
+  impact: MyText
+  strategy: MyText
+  deadline: 2021-04-04
+  evidence: MyText
+  satisfaction: MyText

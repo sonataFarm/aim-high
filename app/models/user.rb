@@ -8,6 +8,7 @@ class User < ApplicationRecord
   before_validation :ensure_session_token
 
   has_many :visions
+  has_many :goals
 
   def self.find_by_credentials(username, pw)
     user = User.find_by_username(username)
