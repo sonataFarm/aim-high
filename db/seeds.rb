@@ -3,7 +3,7 @@ require 'faker'
 USER_COUNT = 10
 USER_COUNT.times do
   User.create(
-    username: Faker::Name.unique.name,
+    username: Faker::Internet.username,
     email: Faker::Internet.email,
     password: '123456'  
   )
