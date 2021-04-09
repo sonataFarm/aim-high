@@ -13,7 +13,7 @@ VISION_COUNT = USER_COUNT * 8
 VISION_COUNT.times do
   Vision.create(
     user: User.all.sample,
-    nickname: Faker::Lorem.words(number: rand(2..5)).map(&:capitalize).join(' '),
+    title: Faker::Lorem.words(number: rand(2..5)).map(&:capitalize).join(' '),
     description: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
     motivation: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
     impact: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
@@ -32,7 +32,7 @@ GOAL_COUNT.times do
   Goal.create(
     user_id: user.id,
     vision_id: rand(0...user.visions.count),
-    nickname: Faker::Lorem.words(number: rand(2..5)).map(&:capitalize).join(' '),
+    title: Faker::Lorem.words(number: rand(2..5)).map(&:capitalize).join(' '),
     description: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
     motivation: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
     impact: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),

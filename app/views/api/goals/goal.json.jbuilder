@@ -1,5 +1,5 @@
 json.id @goal.id
-json.nickname @goal.nickname
+json.title @goal.title
 json.description @goal.description
 json.motivation @goal.motivation
 json.impact @goal.impact

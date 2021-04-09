@@ -45,7 +45,7 @@ class Api::VisionsController < ApplicationController
 
   def vision_params 
     params.require(:vision).permit(
-      :nickname, :description, :motivation, :impact, :user_id
+      :title, :description, :motivation, :impact, :user_id
     )
   end
 end

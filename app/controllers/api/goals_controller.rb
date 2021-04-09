@@ -45,7 +45,7 @@ class Api::GoalsController < ApplicationController
 
   def goal_params
     params.require(:goal).permit(
-      :nickname, :description, :motivation, :impact, :strategy, :deadline,
+      :title, :description, :motivation, :impact, :strategy, :deadline,
       :evidence, :satisfaction, :user_id, :vision_id
     )
   end
