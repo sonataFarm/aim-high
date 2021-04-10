@@ -1,4 +1,4 @@
-import api from '../util/api-util'
+import api from '../util/api-util';
 
 export const
   RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER',

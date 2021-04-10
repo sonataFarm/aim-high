@@ -16,8 +16,13 @@ const register = user => (
   instance.post('users', { user })
 );
 
+const fetchAllGoals = () => (
+  instance.get('goals')
+);
+
 export default {
   logIn,
   logOut,
-  register
+  register,
+  fetchAllGoals
 };

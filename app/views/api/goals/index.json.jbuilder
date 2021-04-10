@@ -1,0 +1,1 @@
+json.array! @goals, partial: 'api/goals/goal', as: :goal

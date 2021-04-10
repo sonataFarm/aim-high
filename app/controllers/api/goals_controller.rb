@@ -1,9 +1,14 @@
 class Api::GoalsController < ApplicationController
+  def index
+    @goals = current_user.goals
+    render 'api/goals/index.json.jbuilder'
+  end
+
   def create
     @goal = Goal.new(goal_params)
 
     if @goal.save
-      render 'api/goals/goal.json.jbuilder'
+      render 'api/goals/show.json.jbuilder'
     else 
       render json: @goal.errors.full_messages, status: 422
     end
@@ -13,7 +18,7 @@ class Api::GoalsController < ApplicationController
     @goal = Goal.find_by_id(params[:id])
 
     if @goal
-      render 'api/goals/goal.json.jbuilder'
+      render 'api/goals/show.json.jbuilder'
     else
       render json: ['Goal not found'], status: 404
     end
@@ -25,7 +30,7 @@ class Api::GoalsController < ApplicationController
       render json: ['Goal not found'], status: 404
     else
       if @goal.update(goal_params.except(:user_id, :vision_id))
-        render 'api/goals/goal.json.jbuilder'
+        render 'api/goals/show.json.jbuilder'
       else 
         render json: @goal.errors.full_messages, status: 422
       end
