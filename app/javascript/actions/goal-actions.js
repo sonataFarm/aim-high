@@ -1,6 +1,5 @@
 import api from '../util/api-util';
-
-import normalize from '../util/normalize';
+import { normalize } from '../util/normalize';
 import { receiveErrors } from './ui-actions';
 
 export const RECEIVE_GOALS = 'RECEIVE_GOALS';

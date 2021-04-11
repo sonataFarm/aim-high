@@ -1,4 +1,9 @@
 class Api::VisionsController < ApplicationController
+  def index
+    @visions = current_user.visions
+    render 'api/visions/index.json.jbuilder'
+  end
+
   def create
     @vision = Vision.new(vision_params)
 

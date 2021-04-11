@@ -1,5 +1,1 @@
-json.id @vision.id
-json.title @vision.title
-json.description @vision.description
-json.motivation @vision.motivation
-json.impact @vision.impact
+json.partial! 'api/visions/vision', vision: @vision

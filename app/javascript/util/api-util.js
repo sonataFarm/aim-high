@@ -20,9 +20,14 @@ const fetchAllGoals = () => (
   instance.get('goals')
 );
 
+const fetchAllVisions = () => (
+  instance.get('visions')
+);
+
 export default {
   logIn,
   logOut,
   register,
-  fetchAllGoals
+  fetchAllGoals,
+  fetchAllVisions
 };

@@ -1,0 +1,1 @@
+json.array! @visions, partial: 'api/visions/vision', as: :vision
