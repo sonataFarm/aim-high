@@ -15,7 +15,7 @@ const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: 'inline',
   },
   drawer: {
     width: drawerWidth,
@@ -30,7 +30,7 @@ const Sidebar = ({ goals, visions }) => {
   const classes = useStyles();
   
   return (
-    <div id="me" className={classes.root}>
+    <div className={classes.root}>
       <CssBaseline />
       <Drawer
         className={classes.drawer}
