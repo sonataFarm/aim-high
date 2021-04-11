@@ -1,8 +1,17 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
 import { fetchAllGoals } from '../actions/goal-actions';
 import { fetchAllVisions } from '../actions/vision-actions';
 import Sidebar from './Sidebar';
+import MainContent from './MainContent';
+
+const styles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'flex-start'
+  }
+};
 
 class HomePage extends React.Component {
   componentDidMount() {
@@ -11,7 +20,7 @@ class HomePage extends React.Component {
   }
   
   render() {
-    return <div><Sidebar /></div>;
+    return <div className={this.props.classes.container}><Sidebar /><MainContent /></div>;
   }
 }
 
@@ -20,4 +29,6 @@ const mapDispatchToProps = dispatch => ({
   fetchAllVisions: () => dispatch(fetchAllVisions())
 });
 
-export default connect(null, mapDispatchToProps)(HomePage);
+export default connect(
+  null, mapDispatchToProps
+)(withStyles(styles)(HomePage));

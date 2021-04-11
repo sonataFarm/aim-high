@@ -1,22 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { AssignmentTurnedIn, StarHalf } from '@material-ui/icons';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { Drawer, CssBaseline, List, Divider } from '@material-ui/core';
+import { AssignmentTurnedIn, StarHalf } from '@material-ui/icons';
 import { denormalize } from '../util/normalize';
+import ListItemLink from './ListItemLink';
 
 const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'inline',
-  },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -30,34 +22,26 @@ const Sidebar = ({ goals, visions }) => {
   const classes = useStyles();
   
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
       <Drawer
         className={classes.drawer}
         variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+        classes={{ paper: classes.drawerPaper }}
         anchor="left"
       >
         <List>
-          {['Goals', 'Review'].map((text, idx) => (
-            <ListItem button key={text}>
-              <ListItemIcon >{idx == 0 ? <StarHalf /> : <AssignmentTurnedIn />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItemLink to="/goals" primary="Goals" icon={<StarHalf />} />
+          <ListItemLink to="/review" primary="Review" icon={<AssignmentTurnedIn />} />
         </List>
         <Divider />
         <List disablePadding>
           {denormalize(visions).map(v => (
             <div key={v.id}>
-              <ListItem button><ListItemText primary={v.title} /></ListItem>
+              <ListItemLink to={`/visions/${v.id}`} primary={v.title} />
               <List dense disablePadding>
                 {v.goals.map(id => goals[id]).map(goal => (
-                  <ListItem button key={goal.id}>
-                    <ListItemText primary={goal.title} />
-                  </ListItem>
+                  <ListItemLink to={`/goals/${goal.id}`} primary={goal.title} key={goal.id} />
                 ))}
               </List>
             </div>
