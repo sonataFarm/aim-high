@@ -33,10 +33,8 @@ const theme = createMuiTheme({
     },
     h6: {
       fontFamily: "Kaushan Script"
-    }
+    },
   }
 });
-
-console.log(theme)
 
 export default theme;
