@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Root from './components/Root';
 import configureStore from './store/store';
+import './styles/fonts.css'
 
 export default () => {
   document.addEventListener('DOMContentLoaded', () => {

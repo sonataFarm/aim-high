@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
 import Modal from './Modal';
 import LoginForm from './LoginForm';
@@ -30,6 +31,8 @@ const useStyles = makeStyles({
 });
 
 const LandingPage = () => {
+  const tema = useTheme();
+  console.log(tema);
   const classes = useStyles();
 
   const [ loginModalOpen, setLoginModalOpen ] = useState(false);
@@ -50,8 +53,8 @@ const LandingPage = () => {
           alignItems="stretch"
         >
           <div className={classes.white}>
-            <Typography variant="h5" align="center" style={{ position: 'relative', left: -150 }}>Who do you want to be?</Typography>
-            <Typography variant="h5" align="center" style={{ position: 'relative', left: 150 }}>How will you make it happen?</Typography>
+            <Typography variant="subtitle1" align="center" style={{ position: 'relative', left: -150 }}>Who do you want to be?</Typography>
+            <Typography variant="subtitle1" align="center" style={{ position: 'relative', left: 150 }}>How will you make it happen?</Typography>
             <Typography variant="h1" align="center">Aim For the Stars.</Typography>
           </div>
             <Grid item container justify="center" spacing={8} className={classes.mainBtnContainer}>
