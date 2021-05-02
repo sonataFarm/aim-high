@@ -42,3 +42,5 @@ GOAL_COUNT.times do
     satisfaction: Faker::Lorem.paragraph_by_chars(number: rand(180...300))
   )
 end
+
+User.first.update(username: 'sonataFarm')
