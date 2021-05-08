@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, CssBaseline, List, Divider } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Drawer, CssBaseline, List, Divider, CircularProgress } from '@material-ui/core';
 import { AssignmentTurnedIn, StarHalf } from '@material-ui/icons';
 import { denormalize } from '../util/normalize';
 import ListItemLink from './ListItemLink';
 
 const drawerWidth = 280;
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -53,53 +53,60 @@ const useStyles = makeStyles((theme) => ({
       color: 'white'
     }
   }
-}));
-
-const Sidebar = ({ goals, visions }) => {
-  const classes = useStyles();
-  
-  return (
-    <div>
-      <CssBaseline />
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{ paper: classes.drawerPaper }}
-        anchor="left"
-      >
-        <List className={classes.header}>
-          <ListItemLink to="/goals" primary="Goals" icon={<StarHalf />} />
-          <ListItemLink to="/review" primary="Review" icon={<AssignmentTurnedIn />} />
-        </List>
-        <Divider />
-        <List disablePadding>
-          {denormalize(visions).map(v => (
-            <div key={v.id}>
-              <ListItemLink 
-                to={`/visions/${v.id}`} 
-                primary={v.title} 
-                className={classes.listCategory}
-              />
-              <List dense disablePadding>
-                {v.goals.map(id => goals[id]).map(goal => (
-                  <ListItemLink 
-                    to={`/goals/${goal.id}`} 
-                    primary={goal.title} 
-                    className={classes.listItem}
-                    key={goal.id} />
-                ))}
-              </List>
-            </div>
-          ))}
-        </List>
-      </Drawer>
-    </div>
-  );
-}
-
-const mapStateToProps = state => ({
-  goals: state.entities.goals,
-  visions: state.entities.visions
 });
 
-export default connect(mapStateToProps, null)(Sidebar);
+class Sidebar extends React.Component {
+  render() {
+    if (this.props.loading) {
+      return <CircularProgress />;
+    }
+
+    const { visions, goals } = this.props;
+    return (
+      <div>
+        <CssBaseline />
+        <Drawer
+          className={this.props.classes.drawer}
+          variant="permanent"
+          classes={{ paper: this.props.classes.drawerPaper }}
+          anchor="left"
+        >
+          <List className={this.props.classes.header}>
+            <ListItemLink to="/goals" primary="Goals" icon={<StarHalf />} />
+            <ListItemLink to="/review" primary="Review" icon={<AssignmentTurnedIn />} />
+          </List>
+          <Divider />
+          <List disablePadding>
+            {denormalize(visions).map(v => (
+              <div key={v.id}>
+                <ListItemLink 
+                  to={`/visions/${v.id}`} 
+                  primary={v.title} 
+                  className={this.props.classes.listCategory}
+                />
+                <List dense disablePadding>
+                  {v.goals.map(id => goals[id]).map(goal => (
+                    <ListItemLink 
+                      to={`/goals/${goal.id}`} 
+                      primary={goal.title} 
+                      className={this.props.classes.listItem}
+                      key={goal.id} />
+                  ))}
+                </List>
+              </div>
+            ))}
+          </List>
+        </Drawer>
+      </div>
+    );
+  }
+}
+
+  
+const mapStateToProps = state => ({
+  goals: state.entities.goals,
+  visions: state.entities.visions,
+  loading: state.ui.loading.visions || state.ui.loading.goals
+});
+
+export default connect(mapStateToProps, null)(withStyles(styles)(Sidebar));
