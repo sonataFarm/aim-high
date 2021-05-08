@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { register } from '../actions/session-actions';
 
-const styles = {
+const styles = theme => ({
   formContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,8 +16,14 @@ const styles = {
     '& > button': {
       marginTop: '10px'
     }
+  },
+  inputLabel: {
+    color: theme.palette.grey['300']
+  },
+  input: {
+    color: 'white'
   }
-};
+});
 
 class RegisterForm extends React.Component {
   handleInputChange = (inputName, e) => {
@@ -82,6 +88,8 @@ class RegisterForm extends React.Component {
         {errMsgs}
         <form className={classes.formContainer}>
           <TextField
+            InputLabelProps={{ className: classes.inputLabel }}
+            InputProps={{ className: classes.input }}
             id="username"
             type="text"
             label="Username"
@@ -91,6 +99,8 @@ class RegisterForm extends React.Component {
             onChange={e => this.handleInputChange('username', e)}
           />
           <TextField
+            InputLabelProps={{ className: classes.inputLabel }}
+            InputProps={{ className: classes.input }}
             id="email"
             type="text"
             label="Email"
@@ -100,6 +110,8 @@ class RegisterForm extends React.Component {
             onChange={e => this.handleInputChange('email', e)}
           />
           <TextField
+            InputLabelProps={{ className: classes.inputLabel }}
+            InputProps={{ className: classes.input }}
             id="password"
             type="password"
             label="Password"
@@ -109,6 +121,8 @@ class RegisterForm extends React.Component {
             onChange={e => this.handleInputChange('password', e)}
           />
           <TextField
+            InputLabelProps={{ className: classes.inputLabel }}
+            InputProps={{ className: classes.input }}
             id="password-confirmation"
             type="password"
             label="Confirm Password"
@@ -118,7 +132,7 @@ class RegisterForm extends React.Component {
             onChange={e => this.handleInputChange('passwordConfirmation', e)}
           />
           <Button 
-            color="primary" 
+            color="secondary" 
             variant="outlined"
             onClick={this.handleSubmit}
             >

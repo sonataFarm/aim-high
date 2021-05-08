@@ -4,7 +4,7 @@ import { Button, Divider, TextField, Typography, withStyles } from '@material-ui
 import { connect } from 'react-redux';
 import { logIn } from '../actions/session-actions';
 
-const styles = {
+const styles = theme => ({
   formContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -16,8 +16,14 @@ const styles = {
     '& > *': {
       display: 'block'
     }
+  },
+  inputLabel: {
+    color: theme.palette.grey['300']
+  },
+  input: {
+    color: 'white'
   }
-};
+});
 
 class LoginForm extends React.Component {
   handleSubmit = () => {
@@ -72,6 +78,9 @@ class LoginForm extends React.Component {
         {errMsgs}
         <form className={this.props.classes.formContainer}>
           <TextField 
+            InputProps={{ className: this.props.classes.input }}
+            InputLabelProps={{ className: this.props.classes.inputLabel }}
+            color="secondary"
             id="username" 
             type="text"
             label="Username" 
@@ -81,6 +90,8 @@ class LoginForm extends React.Component {
             onChange={e => this.handleInputChange('username', e)}
           />
           <TextField
+            InputProps={{ className: this.props.classes.input }}
+            InputLabelProps={{ className: this.props.classes.inputLabel }}
             id="password"
             type="password"
             label="Password"
@@ -90,7 +101,7 @@ class LoginForm extends React.Component {
             onChange={e => this.handleInputChange('password', e)}
           />
           <Button 
-            color="primary" 
+            color="secondary" 
             variant="outlined" 
             onClick={this.handleSubmit}
           >

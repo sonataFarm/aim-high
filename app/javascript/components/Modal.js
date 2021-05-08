@@ -5,9 +5,10 @@ import { Button, Divider, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.secondary.main,
     position: 'absolute',
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
+    width: 500,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
