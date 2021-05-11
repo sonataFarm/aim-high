@@ -15,12 +15,13 @@ const styles = (theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    borderRight: '1px solid black'
   },
   header: {
     background: theme.palette.primary.dark,
     color: 'white',
     '& svg': {
-      color: 'white'
+      color: theme.palette.secondary.main
     }
   },
   listItem: {
@@ -101,7 +102,6 @@ class Sidebar extends React.Component {
     );
   }
 }
-
   
 const mapStateToProps = state => ({
   goals: state.entities.goals,

@@ -14,7 +14,7 @@ const Accordion = ({ title, children }) => {
   return (
     <MuiAccordion id="hi" classes={{ root: classes.accordion }}>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography>{ title }</Typography>
+        <Typography variant="h6">{ title }</Typography>
       </AccordionSummary>
       <AccordionDetails>
         { children }

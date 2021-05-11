@@ -42,7 +42,7 @@ class GoalDetail extends React.Component {
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
-          <Typography variant="subtitle1" align="center">Goal</Typography>
+          <Typography variant="subtitle2" align="center">Goal</Typography>
           <Typography variant="h3" align="center">{goal.title}</Typography>
         </div>
         <div className={this.props.classes.accordionContainer}>
