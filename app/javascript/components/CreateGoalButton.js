@@ -11,9 +11,13 @@ const CreateGoalButton = (props) => {
 
   const handleAddGoal = () => { 
     setAnchorEl(null);
-    props.history.push('/goals/new') 
+    props.history.push('/goals/new');
   };
-  const handleAddVision = () => { console.log('hi') };
+  
+  const handleAddVision = () => { 
+    setAnchorEl(null);
+    props.history.push('/visions/new');
+   };
 
   return (
     <div>
@@ -30,7 +34,6 @@ const CreateGoalButton = (props) => {
           vertical: 'top',
           horizontal: 'right'
         }}
-        // keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
