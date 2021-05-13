@@ -26,7 +26,7 @@ const classes = {
 
 class GoalDetail extends React.Component {
   get loading() {
-    return !this.props.goal ? true : false
+    return !this.props.goal;
   }
 
   render() {
