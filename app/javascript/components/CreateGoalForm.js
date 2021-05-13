@@ -8,6 +8,7 @@ import moment from 'moment';
 import { createGoal } from '../actions/goal-actions';
 import { denormalizeEntities } from '../util/normalize';
 import StepperForm from './StepperForm';
+import StepperFormContent from './StepperFormContent';
 
 const styles = {
   container: {
@@ -17,13 +18,6 @@ const styles = {
   header: {
     marginTop: '30px',
     marginBottom: '30px'
-  },
-  section: {
-    width: '80%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
   },
   root: {
     width: '95%',
@@ -120,7 +114,7 @@ class CreateGoalForm extends React.Component {
 
     const stepContents = [
       (
-        <div id="description" className={this.props.classes.section}>
+        <StepperFormContent>
           <FormControl className={this.props.classes.visionSelect}>
             <InputLabel>Vision</InputLabel>
             <Select 
@@ -155,60 +149,60 @@ class CreateGoalForm extends React.Component {
             onChange={e => this.handleInputChange(e, "description")}
             multiline rows={3} 
             />
-          </div>
+          </StepperFormContent>
       ),
       (
-        <div id="motivation" className={this.props.classes.section}>
-            <Typography variant="subtitle1">What is your motivation for pursuing this goal?</Typography>
-            <TextField 
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="Motivation"
-              required
-              value={this.state.motivation}
-              onChange={e => this.handleInputChange(e, "motivation")}
-              multiline rows={3} 
-            />
-            <Typography variant="subtitle1">What will be the impact on your life of achieving this goal?</Typography>
-            <TextField 
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="Impact"
-              required
-              value={this.state.impact}
-              onChange={e => this.handleInputChange(e, "impact")}
-              multiline rows={3} 
-            />
-          </div>
+        <StepperFormContent>
+          <Typography variant="subtitle1">What is your motivation for pursuing this goal?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="Motivation"
+            required
+            value={this.state.motivation}
+            onChange={e => this.handleInputChange(e, "motivation")}
+            multiline rows={3} 
+          />
+          <Typography variant="subtitle1">What will be the impact on your life of achieving this goal?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="Impact"
+            required
+            value={this.state.impact}
+            onChange={e => this.handleInputChange(e, "impact")}
+            multiline rows={3} 
+          />
+        </StepperFormContent>
       ),
       (
-      <div id="strategy" className={this.props.classes.section}>
-        <Typography variant="subtitle1">When is your deadline?</Typography>
-        <KeyboardDatePicker
-          margin="normal"
-          label="Deadline"
-          format="YYYY-MM-DD"
-          value={this.state.deadline}
-          inputValue={this.state.deadline.format("YYYY-MM-DD")}
-          onChange={e => this.handleInputChange(e, "deadline")}
-        />
-        <Typography variant="subtitle1">What is your detailed strategy for achieving this goal?</Typography>
-        <TextField 
-          type="text"
-          variant="outlined"
-          fullWidth
-          label="Strategy"
-          required
-          value={this.state.strategy}
-          onChange={e => this.handleInputChange(e, "strategy")}
-          multiline rows={3} 
-        />
-      </div>
+        <StepperFormContent>
+          <Typography variant="subtitle1">When is your deadline?</Typography>
+          <KeyboardDatePicker
+            margin="normal"
+            label="Deadline"
+            format="YYYY-MM-DD"
+            value={this.state.deadline}
+            inputValue={this.state.deadline.format("YYYY-MM-DD")}
+            onChange={e => this.handleInputChange(e, "deadline")}
+          />
+          <Typography variant="subtitle1">What is your detailed strategy for achieving this goal?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="Strategy"
+            required
+            value={this.state.strategy}
+            onChange={e => this.handleInputChange(e, "strategy")}
+            multiline rows={3} 
+          />
+        </StepperFormContent>
       ),
       (
-        <div id="obstacles" className={this.props.classes.section}>
+        <StepperFormContent>
           <Typography variant="subtitle1">What are one or more potential obstacles? How will you solve them?</Typography>
           { 
             this.state.obstacles.map((o, idx) => (
@@ -254,33 +248,33 @@ class CreateGoalForm extends React.Component {
           >
               Add Another Obstacle
             </Button> 
-        </div>
+        </StepperFormContent>
       ),
       (
-        <div id="monitoring" className={this.props.classes.section}>
-            <Typography variant="subtitle1">What will you accept as evidence that you are progressing towards your goal?</Typography>
-            <TextField 
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="Evidence"
-              required
-              value={this.state.evidence}
-              onChange={e => this.handleInputChange(e, "evidence")}
-              multiline rows={3} 
-            />
-            <Typography variant="subtitle1">How will things in your life have to change, measurably, for you to feel satisfied in your progress?</Typography>
-            <TextField 
-              type="text"
-              variant="outlined"
-              fullWidth
-              label="What will make you feel satisfied in your progress?"
-              required
-              value={this.state.satisfaction}
-              onChange={e => this.handleInputChange(e, "satisfaction")}
-              multiline rows={3} 
-            />
-          </div>
+        <StepperFormContent>
+          <Typography variant="subtitle1">What will you accept as evidence that you are progressing towards your goal?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="Evidence"
+            required
+            value={this.state.evidence}
+            onChange={e => this.handleInputChange(e, "evidence")}
+            multiline rows={3} 
+          />
+          <Typography variant="subtitle1">How will things in your life have to change, measurably, for you to feel satisfied in your progress?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="What will make you feel satisfied in your progress?"
+            required
+            value={this.state.satisfaction}
+            onChange={e => this.handleInputChange(e, "satisfaction")}
+            multiline rows={3} 
+          />
+        </StepperFormContent>
       ),
     ];
 
