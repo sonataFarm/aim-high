@@ -20,14 +20,24 @@ const fetchAllGoals = () => (
   instance.get('goals')
 );
 
+const createGoal = goal => (
+  instance.post('goals', { goal: {
+    ...goal,
+    obstaclesAttributes: goal.obstacles
+  }})
+);
+
 const fetchAllVisions = () => (
   instance.get('visions')
 );
 
 export default {
+  createGoal,
   logIn,
   logOut,
   register,
   fetchAllGoals,
   fetchAllVisions
 };
+
+window.createGoal = createGoal;
