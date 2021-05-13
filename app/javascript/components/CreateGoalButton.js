@@ -34,8 +34,8 @@ const CreateGoalButton = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleAddGoal}>Add Goal</MenuItem>
-        <MenuItem onClick={handleAddSupergoal}>Add Supergoal</MenuItem>
+        <MenuItem onClick={handleAddSupergoal}>Create Vision</MenuItem>
+        <MenuItem onClick={handleAddGoal}>Create Goal</MenuItem>
       </Menu>
     </div>
   );
