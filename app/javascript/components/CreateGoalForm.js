@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, Step, StepLabel, Stepper, TextField, Typography, withStyles } from '@material-ui/core';
+import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Add, NavigateBefore, NavigateNext, RemoveCircle } from '@material-ui/icons';
+import { Add, RemoveCircle } from '@material-ui/icons';
 import moment from 'moment';
 import { createGoal } from '../actions/goal-actions';
 import { denormalizeEntities } from '../util/normalize';
+import StepperForm from './StepperForm';
 
 const styles = {
   container: {
@@ -17,17 +18,6 @@ const styles = {
     marginTop: '30px',
     marginBottom: '30px'
   },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    '& > div': {
-      width: '80%'
-    },
-    '& div.MuiInputBase-root': {
-      marginBottom: '15px'
-    }
-  },
   section: {
     width: '80%',
     display: 'flex',
@@ -35,21 +25,9 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  stepper: {
-    '& .MuiStepper-root': {
-      background: 'transparent'
-    }
-  },
   root: {
     width: '95%',
     margin: '10px'
-  },
-  btnBar: {
-    display: 'flex',
-    justifyContent: 'center',
-    '& button': {
-      margin: '10px'
-    }
   },
   visionSelect: {
     minWidth: '300px'
@@ -61,43 +39,29 @@ class CreateGoalForm extends React.Component {
     super(props);
 
     this.state = {
-      activeSection: 0,
-      formData: {
-        visionId: this.props.visions[0] ? this.props.visions[0].id : null,
-        title: '',
-        description: '',
-        motivation: '',
-        impact: '',
-        strategy: '',
-        deadline: moment().add(1, 'M'),
-        evidence: '',
-        satisfaction: '',
-        obstacles: [ { description: '', solution: '' } ]
-      }
+      visionId: this.props.visions[0] ? this.props.visions[0].id : null,
+      title: '',
+      description: '',
+      motivation: '',
+      impact: '',
+      strategy: '',
+      deadline: moment().add(1, 'M'),
+      evidence: '',
+      satisfaction: '',
+      obstacles: [ { description: '', solution: '' } ]
     };
   }
 
   componentDidUpdate = (_, prevState) => {
-    if (prevState.formData.visionId === null && this.props.visions.length) {
-      this.setState({ formData: {
-        ...this.state.formData,
-        visionId: this.props.visions[0].id
-      }});
+    if (prevState.visionId === null && this.props.visions.length) {
+      this.setState({ visionId: this.props.visions[0].id});
     }
   }
 
-  handleNext = () => {
-    this.setState({ activeSection: this.state.activeSection + 1 });
-  };
-
-  handleBack = () => {
-    this.setState({ activeSection: this.state.activeSection - 1 });
-  };
-
   handleInputChange = (event, field) => {
     event.preventDefault && event.preventDefault();
+    
     let value;
-
     if (field === 'visionId') {
       value = event.target.value;
     } else if (field === 'deadline') {
@@ -106,50 +70,39 @@ class CreateGoalForm extends React.Component {
       value = event.currentTarget.value;
     }
 
-    this.setState({
-      formData: { ...this.state.formData, [field]: value }
-    });
+    this.setState({ [field]: value });
   };
   
   handleAddObstacle = e => {
     e.preventDefault();
-
-    const obstacles = [
-      ...this.state.formData.obstacles,
-      { description: '', solution: '' }
-    ];
-
-    this.setState({ formData: { ...this.state.formData, obstacles }});
+    const obstacles = [ ...this.state.obstacles, { description: '', solution: '' } ];
+    this.setState({ obstacles });
   };
 
   handleRemoveObstacle = (e, idx) => {
     e.preventDefault();
-    const { obstacles } = this.state.formData;
-    this.setState({ formData: {
-      ...this.state.formData,
-      obstacles: [ ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) ]
-    }});
+    const { obstacles } = this.state;
+    this.setState({ 
+      obstacles: [ 
+        ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) 
+      ]
+    });
   };
 
     handleObstacleChange = (event, field, idx) => {
     event.preventDefault();
-    const obstacles = [ ...this.state.formData.obstacles ];
+    const obstacles = [ ...this.state.obstacles ];
 
     const obstacle = {
-      ...obstacles[idx],
-      [field]: event.currentTarget.value
+      ...obstacles[idx], [field]: event.currentTarget.value
     };
 
     obstacles[idx] = obstacle;
-
-    this.setState({ formData: { 
-      ...this.state.formData,
-      obstacles
-    }});
+    this.setState({ obstacles });
   };
 
   loading = () => {
-    return !this.state.formData.visionId;
+    return !this.state.visionId;
   };
 
   render() {
@@ -157,9 +110,7 @@ class CreateGoalForm extends React.Component {
       return <CircularProgress />;
     }
 
-    const { formData } = this.state;
-
-    const sectionDescriptions = [
+    const stepDescriptions = [
       'Describe your goal', 
       'Understand your motivation', 
       'Outline a detailed strategy', 
@@ -167,13 +118,13 @@ class CreateGoalForm extends React.Component {
       'Make plans for ongoing monitoring'
     ];
 
-    const sectionContent = [
+    const stepContents = [
       (
         <div id="description" className={this.props.classes.section}>
           <FormControl className={this.props.classes.visionSelect}>
             <InputLabel>Vision</InputLabel>
             <Select 
-              value={this.state.formData.visionId} 
+              value={this.state.visionId} 
               onChange={e => this.handleInputChange(e, 'visionId')}
             >
               {
@@ -183,26 +134,24 @@ class CreateGoalForm extends React.Component {
               }
             </Select>
           </FormControl>
-          <Typography variant="subtitle1">Give your goal a short title.</Typography>
+          <Typography variant="subtitle1">Give your goal a short title:</Typography>
           <TextField 
             type="text" 
             variant="outlined"
             fullWidth
-            id="title"
             label="Title"
-            value={formData.title} 
+            value={this.state.title} 
             onChange={e => this.handleInputChange(e, 'title')} 
             required
           />
-          <Typography variant="subtitle1">Describe your goal in detail.</Typography>
+          <Typography variant="subtitle1">Describe your goal in detail:</Typography>
           <TextField 
             type="text"
             variant="outlined"
             fullWidth
-            id="description"
             label="Description"
             required
-            value={formData.description}
+            value={this.state.description}
             onChange={e => this.handleInputChange(e, "description")}
             multiline rows={3} 
             />
@@ -215,10 +164,9 @@ class CreateGoalForm extends React.Component {
               type="text"
               variant="outlined"
               fullWidth
-              id="motivation"
               label="Motivation"
               required
-              value={formData.motivation}
+              value={this.state.motivation}
               onChange={e => this.handleInputChange(e, "motivation")}
               multiline rows={3} 
             />
@@ -227,10 +175,9 @@ class CreateGoalForm extends React.Component {
               type="text"
               variant="outlined"
               fullWidth
-              id="impact"
               label="Impact"
               required
-              value={formData.impact}
+              value={this.state.impact}
               onChange={e => this.handleInputChange(e, "impact")}
               multiline rows={3} 
             />
@@ -241,25 +188,20 @@ class CreateGoalForm extends React.Component {
         <Typography variant="subtitle1">When is your deadline?</Typography>
         <KeyboardDatePicker
           margin="normal"
-          id="deadline-picker"
           label="Deadline"
           format="YYYY-MM-DD"
-          value={formData.deadline}
-          inputValue={formData.deadline.format("YYYY-MM-DD")}
+          value={this.state.deadline}
+          inputValue={this.state.deadline.format("YYYY-MM-DD")}
           onChange={e => this.handleInputChange(e, "deadline")}
-          KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
         />
         <Typography variant="subtitle1">What is your detailed strategy for achieving this goal?</Typography>
         <TextField 
           type="text"
           variant="outlined"
           fullWidth
-          id="strategy"
           label="Strategy"
           required
-          value={formData.strategy}
+          value={this.state.strategy}
           onChange={e => this.handleInputChange(e, "strategy")}
           multiline rows={3} 
         />
@@ -269,10 +211,10 @@ class CreateGoalForm extends React.Component {
         <div id="obstacles" className={this.props.classes.section}>
           <Typography variant="subtitle1">What are one or more potential obstacles? How will you solve them?</Typography>
           { 
-            formData.obstacles.map((o, idx) => (
+            this.state.obstacles.map((o, idx) => (
               <Card key={idx} variant="outlined" className={this.props.classes.root}>
                 <CardContent>
-                  <div style={{ display: "flex", justifyContent: 'space-between'  }}>
+                  <div style={{ display: "flex", justifyContent: 'space-between' }}>
                     <Typography variant="h6" align="center" gutterBottom>Obstacle</Typography>
                     <IconButton onClick={e => this.handleRemoveObstacle(e, idx) } >
                       <RemoveCircle color="error" />
@@ -280,12 +222,11 @@ class CreateGoalForm extends React.Component {
                   </div>
                   <TextField 
                     width=""
-                    size="large"
                     type="text"
                     variant="outlined"
                     label="Obstacle"
                     required
-                    value={formData.obstacles[idx].description}
+                    value={this.state.obstacles[idx].description}
                     multiline rows={2}
                     fullWidth
                     onChange={e => this.handleObstacleChange(e, 'description', idx)}
@@ -295,7 +236,7 @@ class CreateGoalForm extends React.Component {
                     variant="outlined"
                     label="Solution"
                     required
-                    value={formData.obstacles[idx].solution}
+                    value={this.state.obstacles[idx].solution}
                     fullWidth
                     multiline rows={2}
                     onChange={e => this.handleObstacleChange(e, "solution", idx)}
@@ -322,10 +263,9 @@ class CreateGoalForm extends React.Component {
               type="text"
               variant="outlined"
               fullWidth
-              id="evidence"
               label="Evidence"
               required
-              value={formData.evidence}
+              value={this.state.evidence}
               onChange={e => this.handleInputChange(e, "evidence")}
               multiline rows={3} 
             />
@@ -334,10 +274,9 @@ class CreateGoalForm extends React.Component {
               type="text"
               variant="outlined"
               fullWidth
-              id="satisfaction"
               label="What will make you feel satisfied in your progress?"
               required
-              value={formData.satisfaction}
+              value={this.state.satisfaction}
               onChange={e => this.handleInputChange(e, "satisfaction")}
               multiline rows={3} 
             />
@@ -352,48 +291,12 @@ class CreateGoalForm extends React.Component {
         </div>
         <div className={this.props.classes.content}>
           <div id="stepper" className={this.props.classes.stepper}>
-            <Stepper activeStep={this.state.activeSection}>
-              {sectionDescriptions.map((label, index) => {
-                return (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-          </div>
-          { sectionContent[ this.state.activeSection ] }
-          <div className={this.props.classes.btnBar}>
-            {(
-              this.state.activeSection > 0 ?
-              <Button 
-                color="secondary" 
-                variant="contained" 
-                onClick={this.handleBack}
-                startIcon={<NavigateBefore />}
-              >
-                Back
-              </Button> : 
-              null
-            )}
-            {(
-              this.state.activeSection  === 4 ? 
-              <Button 
-                color="primary" 
-                variant="contained" 
-                onClick={() => this.props.handleSubmit(formData)}
-              >
-                Create
-              </Button> :
-              <Button 
-                color="secondary" 
-                variant="contained" 
-                onClick={this.handleNext}
-                endIcon={<NavigateNext />}
-              >
-                Next
-              </Button> 
-            )}
+            <StepperForm 
+              stepDescriptions={stepDescriptions}
+              stepContents={stepContents}
+              handleSubmit={() => this.props.handleSubmit(this.state)}
+            >
+            </StepperForm>
           </div>
         </div>
       </div>
