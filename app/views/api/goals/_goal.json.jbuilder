@@ -7,6 +7,7 @@ json.strategy goal.strategy
 json.deadline goal.deadline
 json.evidence goal.evidence
 json.satisfaction goal.satisfaction
+json.visionId goal.vision.id
 
 json.obstacles goal.obstacles.map do |o|
   json.id o.id

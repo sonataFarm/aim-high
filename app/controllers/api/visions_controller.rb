@@ -6,6 +6,7 @@ class Api::VisionsController < ApplicationController
 
   def create
     @vision = Vision.new(vision_params)
+    @vision.user = current_user
 
     if @vision.save
       render 'api/visions/show.json.jbuilder'
@@ -50,7 +51,7 @@ class Api::VisionsController < ApplicationController
 
   def vision_params 
     params.require(:vision).permit(
-      :title, :description, :motivation, :impact, :user_id
+      :title, :description, :motivation, :impact
     )
   end
 end
