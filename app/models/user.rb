@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :visions
   has_many :goals
+  has_many :obstacles, through: :goals
 
   def self.find_by_credentials(username, pw)
     user = User.find_by_username(username)

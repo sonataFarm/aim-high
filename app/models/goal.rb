@@ -5,4 +5,6 @@ class Goal < ApplicationRecord
   }
   belongs_to :vision
   belongs_to :user
+  has_many :obstacles
+  accepts_nested_attributes_for :obstacles
 end

@@ -5,8 +5,9 @@ class Api::GoalsController < ApplicationController
   end
 
   def create
+    require 'pry'
     @goal = Goal.new(goal_params)
-
+    @goal.user = current_user
     if @goal.save
       render 'api/goals/show.json.jbuilder'
     else 
@@ -51,7 +52,7 @@ class Api::GoalsController < ApplicationController
   def goal_params
     params.require(:goal).permit(
       :title, :description, :motivation, :impact, :strategy, :deadline,
-      :evidence, :satisfaction, :user_id, :vision_id
+      :evidence, :satisfaction, :vision_id, obstacles_attributes: [ :description, :solution ]
     )
   end
 end
