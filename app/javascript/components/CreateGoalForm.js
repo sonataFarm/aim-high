@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { Button, Card, CardContent, CardHeader, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, Step, StepLabel, Stepper, TextField, Typography, withStyles } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, Step, StepLabel, Stepper, TextField, Typography, withStyles } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Add, AddCircleOutline, NavigateBefore, NavigateNext, RemoveCircle } from '@material-ui/icons';
+import { Add, NavigateBefore, NavigateNext, RemoveCircle } from '@material-ui/icons';
+import moment from 'moment';
 import { createGoal } from '../actions/goal-actions';
 import { denormalizeEntities } from '../util/normalize';
 
@@ -11,7 +12,6 @@ const styles = {
   container: {
     width: '100%',
     height: '100%',
-    // background: 'blue'
   },
   header: {
     marginTop: '30px',
@@ -60,28 +60,24 @@ class CreateGoalForm extends React.Component {
   constructor(props) {
     super(props);
 
-    const deadline = moment().add(1, 'M')
-
     this.state = {
       activeSection: 0,
       formData: {
-        visionId: null,
+        visionId: this.props.visions[0] ? this.props.visions[0].id : null,
         title: '',
         description: '',
         motivation: '',
         impact: '',
         strategy: '',
-        deadline: deadline,
+        deadline: moment().add(1, 'M'),
         evidence: '',
         satisfaction: '',
-        obstacles: [
-          { description: 'Cant do it', solution: 'Do it' },
-        ],
+        obstacles: [ { description: '', solution: '' } ]
       }
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (_, prevState) => {
     if (prevState.formData.visionId === null && this.props.visions.length) {
       this.setState({ formData: {
         ...this.state.formData,
@@ -90,33 +86,52 @@ class CreateGoalForm extends React.Component {
     }
   }
 
-  handleInputChange = (event, field) => {
-    switch (field) {
-      case 'visionId': 
-        this.setState({
-          formData: {
-            ...this.state.formData,
-            visionId: event.target.value
-          }
-        });
-        break;
-      case 'deadline':
-        this.setState({ 
-          formData: { 
-            ...this.state.formData, 
-            deadline: event
-          }
-        });
-        break;
-      default:
-        event.preventDefault();
-        this.setState({
-          formData: { ...this.state.formData, [field]: event.currentTarget.value }
-        });
-    }
+  handleNext = () => {
+    this.setState({ activeSection: this.state.activeSection + 1 });
   };
 
-  handleObstacleChange = (event, field, idx) => {
+  handleBack = () => {
+    this.setState({ activeSection: this.state.activeSection - 1 });
+  };
+
+  handleInputChange = (event, field) => {
+    event.preventDefault && event.preventDefault();
+    let value;
+
+    if (field === 'visionId') {
+      value = event.target.value;
+    } else if (field === 'deadline') {
+      value = event;      
+    } else {
+      value = event.currentTarget.value;
+    }
+
+    this.setState({
+      formData: { ...this.state.formData, [field]: value }
+    });
+  };
+  
+  handleAddObstacle = e => {
+    e.preventDefault();
+
+    const obstacles = [
+      ...this.state.formData.obstacles,
+      { description: '', solution: '' }
+    ];
+
+    this.setState({ formData: { ...this.state.formData, obstacles }});
+  };
+
+  handleRemoveObstacle = (e, idx) => {
+    e.preventDefault();
+    const { obstacles } = this.state.formData;
+    this.setState({ formData: {
+      ...this.state.formData,
+      obstacles: [ ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) ]
+    }});
+  };
+
+    handleObstacleChange = (event, field, idx) => {
     event.preventDefault();
     const obstacles = [ ...this.state.formData.obstacles ];
 
@@ -131,50 +146,16 @@ class CreateGoalForm extends React.Component {
       ...this.state.formData,
       obstacles
     }});
-  }
-  
-  handleAddObstacle = e => {
-    e.preventDefault();
-
-    const obstacles = [
-      ...this.state.formData.obstacles,
-      { description: '', solution: '' }
-    ];
-
-    this.setState({ formData: {
-      ...this.state.formData,
-      obstacles
-    }});
-  }
-
-  handleRemoveObstacle = (e, idx) => {
-    e.preventDefault();
-    const { obstacles } = this.state.formData;
-    this.setState({ formData: {
-      ...this.state.formData,
-      obstacles: [ ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) ]
-    }});
-  }
+  };
 
   loading = () => {
     return !this.state.formData.visionId;
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    const goal = this.state.formData;
-    
-    this.props.createGoal(goal);
-  }
+  };
 
   render() {
     if (this.loading()) {
       return <CircularProgress />;
     }
-
-    console.log(this.props.visions);
-    console.log(this.state.formData.visionId);
 
     const { formData } = this.state;
 
@@ -189,11 +170,9 @@ class CreateGoalForm extends React.Component {
     const sectionContent = [
       (
         <div id="description" className={this.props.classes.section}>
-          <Typography variant="subtitle1">Select a vision for this goal:</Typography>
           <FormControl className={this.props.classes.visionSelect}>
             <InputLabel>Vision</InputLabel>
             <Select 
-              defaultValue=""
               value={this.state.formData.visionId} 
               onChange={e => this.handleInputChange(e, 'visionId')}
             >
@@ -366,14 +345,6 @@ class CreateGoalForm extends React.Component {
       ),
     ];
 
-    const handleNext = () => {
-      this.setState({ activeSection: this.state.activeSection + 1 });
-    };
-
-    const handleBack = () => {
-      this.setState({ activeSection: this.state.activeSection - 1 });
-    };
-
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
@@ -383,12 +354,9 @@ class CreateGoalForm extends React.Component {
           <div id="stepper" className={this.props.classes.stepper}>
             <Stepper activeStep={this.state.activeSection}>
               {sectionDescriptions.map((label, index) => {
-                const stepProps = {};
-                const labelProps = {};
-
                 return (
-                  <Step key={label} {...stepProps}>
-                    <StepLabel { ...labelProps}>{label}</StepLabel>
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
                   </Step>
                 );
               })}
@@ -401,7 +369,7 @@ class CreateGoalForm extends React.Component {
               <Button 
                 color="secondary" 
                 variant="contained" 
-                onClick={handleBack}
+                onClick={this.handleBack}
                 startIcon={<NavigateBefore />}
               >
                 Back
@@ -420,14 +388,12 @@ class CreateGoalForm extends React.Component {
               <Button 
                 color="secondary" 
                 variant="contained" 
-                onClick={handleNext}
+                onClick={this.handleNext}
                 endIcon={<NavigateNext />}
               >
                 Next
               </Button> 
             )}
-          </div>
-          <div id="navigation">
           </div>
         </div>
       </div>
@@ -440,9 +406,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  handleSubmit: goal => { dispatch(createGoal(goal)) }
+  handleSubmit: goal => { 
+    dispatch(createGoal(goal)).then(action => { 
+        ownProps.history.push(`/goals/${action.payload.id}`) 
+    });
+  }
 });
 
-export default withStyles(styles)(
-  connect(mapStateToProps, mapDispatchToProps)(CreateGoalForm)
-);
+export default withRouter(withStyles(styles)(
+    connect(mapStateToProps, mapDispatchToProps)(CreateGoalForm)
+));

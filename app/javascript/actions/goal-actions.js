@@ -1,5 +1,4 @@
 import api from '../util/api-util';
-import { normalizeEntities } from '../util/normalize';
 import { receiveErrors } from './ui-actions';
 
 export const RECEIVE_GOAL = 'RECEIVE_GOAL';
@@ -14,12 +13,12 @@ export const fetchAllGoals = () => dispatch => {
   );
 };
 
-export const createGoal = goal => dispatch => {
+export const createGoal = goal => dispatch => (
   api.createGoal(goal).then(
     res => dispatch(receiveGoal(res.data)),
     err => dispatch(receiveErrors(err.response.data))
-  );
-};
+  )
+);
 
 export const beginLoadingGoals = () => ({
   type: BEGIN_LOADING_GOALS
