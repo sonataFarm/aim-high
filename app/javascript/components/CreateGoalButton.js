@@ -13,7 +13,7 @@ const CreateGoalButton = (props) => {
     setAnchorEl(null);
     props.history.push('/goals/new') 
   };
-  const handleAddSupergoal = () => { console.log('hi') };
+  const handleAddVision = () => { console.log('hi') };
 
   return (
     <div>
@@ -34,7 +34,7 @@ const CreateGoalButton = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleAddSupergoal}>Create Vision</MenuItem>
+        <MenuItem onClick={handleAddVision}>Create Vision</MenuItem>
         <MenuItem onClick={handleAddGoal}>Create Goal</MenuItem>
       </Menu>
     </div>
