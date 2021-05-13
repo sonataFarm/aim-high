@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline, List, Divider, CircularProgress } from '@material-ui/core';
 import { AssignmentTurnedIn, StarHalf } from '@material-ui/icons';
-import { denormalize } from '../util/normalize';
+import { denormalizeEntities } from '../util/normalize';
 import ListItemLink from './ListItemLink';
 
 const drawerWidth = 280;
@@ -62,6 +62,8 @@ class Sidebar extends React.Component {
       return <CircularProgress />;
     }
 
+    // debugger;
+
     const { visions, goals } = this.props;
     return (
       <div>
@@ -78,7 +80,7 @@ class Sidebar extends React.Component {
           </List>
           <Divider />
           <List disablePadding>
-            {denormalize(visions).map(v => (
+            {visions.map(v => (
               <div key={v.id}>
                 <ListItemLink 
                   to={`/visions/${v.id}`} 
@@ -105,7 +107,7 @@ class Sidebar extends React.Component {
   
 const mapStateToProps = state => ({
   goals: state.entities.goals,
-  visions: state.entities.visions,
+  visions: denormalizeEntities(state.entities.visions),
   loading: state.ui.loading.visions || state.ui.loading.goals
 });
 
