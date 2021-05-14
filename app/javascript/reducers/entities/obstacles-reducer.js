@@ -7,10 +7,7 @@ const ObstaclesReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_GOAL:
       obstacles = action.payload.obstacles;
-      return {
-        ...state,
-        ...normalizeEntities(obstacles)
-      };
+      return { ...state, ...normalizeEntities(obstacles) };
     case RECEIVE_GOALS:
       obstacles = action.payload.reduce((o, g) => {
         return [ ...o, ...g.obstacles ];
