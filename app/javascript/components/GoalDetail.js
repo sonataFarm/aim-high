@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
+import { updateGoal } from '../actions/goal-actions';
 import Accordion from './Accordion';
+import EditableTextField from './EditableTextField';
+
 
 const classes = {
   container: {
@@ -29,6 +32,14 @@ class GoalDetail extends React.Component {
     return !this.props.goal;
   }
 
+
+  handleUpdate = key => val => {
+    const { id } = this.props.goal;
+    this.props.dispatch(updateGoal({
+      id, [key]: val
+    }));
+  };
+
   render() {
     const { goal, vision } = this.props;
     if (this.loading) {
@@ -50,15 +61,21 @@ class GoalDetail extends React.Component {
         </div>
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
-            <Typography variant="body2">{goal.motivation}</Typography>
+            <EditableTextField
+              handleUpdate={this.handleUpdate('motivation')}
+            >{goal.motivation}</EditableTextField>
           </Accordion>
 
           <Accordion title="Impact">
-            <Typography variant="body2">{goal.impact}</Typography>
+             <EditableTextField
+              handleUpdate={this.handleUpdate('impact')}
+            >{goal.impact}</EditableTextField>
           </Accordion>
 
           <Accordion title="Strategy">
-            <Typography variant="body2">{goal.strategy}</Typography>
+             <EditableTextField
+              handleUpdate={this.handleUpdate('strategy')}
+            >{goal.strategy}</EditableTextField>
           </Accordion>
 
           <Accordion title="Obstacles">
@@ -66,7 +83,9 @@ class GoalDetail extends React.Component {
           </Accordion>
 
           <Accordion title="Monitoring">
-            <Typography variant="body2">{goal.evidence}</Typography>
+             <EditableTextField
+              handleUpdate={this.handleUpdate('monitoring')}
+            >{goal.evidence}</EditableTextField>
           </Accordion>
         </div>
       </div>

@@ -20,6 +20,13 @@ export const createGoal = goal => dispatch => (
   )
 );
 
+export const updateGoal = goal => dispatch => {
+  api.updateGoal(goal).then(
+    res => dispatch(receiveGoal(res.data)),
+    err => dispatch(receiveErrors(err.response.data))
+  )
+};
+
 export const beginLoadingGoals = () => ({
   type: BEGIN_LOADING_GOALS
 });

@@ -19,6 +19,13 @@ export const createVision = vision => dispatch => (
   )
 );
 
+export const updateVision = vision => dispatch => (
+  api.updateVision(vision).then(
+    res => dispatch(receiveVision(res.data)),
+    err => dispatch(receiveErrors(err.response.data))
+  )
+);
+
 export const beginLoadingVisions = () => ({
   type: BEGIN_LOADING_VISIONS
 });

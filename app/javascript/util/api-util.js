@@ -27,9 +27,18 @@ const createGoal = goal => (
   }})
 );
 
+const updateGoal = goal => (
+  instance.patch(`goals/${goal.id}`, { goal })
+);
+
 const createVision = vision => (
   instance.post('visions', { vision })
 );
+
+const updateVision = vision => (
+  instance.patch(`visions/${vision.id}`, { vision })
+);
+
 
 const fetchAllVisions = () => (
   instance.get('visions')
@@ -38,9 +47,13 @@ const fetchAllVisions = () => (
 export default {
   createGoal,
   createVision,
+  fetchAllGoals,
+  fetchAllVisions,
   logIn,
   logOut,
   register,
-  fetchAllGoals,
-  fetchAllVisions
+  updateGoal,
+  updateVision
 };
+
+window.updateGoal = updateGoal;

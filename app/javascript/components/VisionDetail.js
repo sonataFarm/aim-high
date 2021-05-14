@@ -4,9 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { denormalizeEntities } from '../util/normalize';
+import { updateVision } from '../actions/vision-actions';
 import Accordion from './Accordion';
 import GoalCard from './GoalCard';
 import CardGrid from './CardGrid';
+import EditableTextField from './EditableTextField';
 
 const classes = {
   container: {
@@ -36,6 +38,13 @@ class VisionDetail extends React.Component {
     return !this.props.vision;
   }
 
+  handleUpdate = key => val => {
+    const { id } = this.props.vision;
+    this.props.dispatch(updateVision({
+      id, [key]: val
+    }));
+  }
+
   render() {
     const { vision, goals } = this.props;
 
@@ -59,11 +68,14 @@ class VisionDetail extends React.Component {
         </div>
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
-            <Typography variant="body2">{vision.motivation}</Typography>
+            <EditableTextField
+              handleUpdate={this.handleUpdate('motivation')}
+            >{vision.motivation}</EditableTextField>
           </Accordion>
-
           <Accordion title="Impact">
-            <Typography variant="body2">{vision.impact}</Typography>
+            <EditableTextField
+              handleUpdate={this.handleUpdate('impact')}
+            >{vision.impact}</EditableTextField>
           </Accordion>
         </div>
         <div>
@@ -85,6 +97,7 @@ class VisionDetail extends React.Component {
 const mapStateToProps = (state, ownProps) => { 
   const vision = state.entities.visions[ownProps.match.params.id];
   let goals;
+
   if (vision) {
     goals = denormalizeEntities(state.entities.goals).filter(
       g => g.visionId == vision.id

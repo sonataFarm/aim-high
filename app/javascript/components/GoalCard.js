@@ -48,11 +48,11 @@ const GoalCard = ({ goal, history }) => {
         <Typography variant="h5" component="h2" gutterBottom>
           {goal.title}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
           <div className={classes.description}>
-            { goal.description }
+            <Typography className={classes.pos} color="textSecondary">
+              { goal.description }
+            </Typography>
           </div>
-        </Typography>
       </CardContent>
       <CardActions>
         <Button size="small" onClick={handleClick}>View Goal</Button>

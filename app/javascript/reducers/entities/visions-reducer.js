@@ -14,13 +14,17 @@ const VisionsReducer = (state = {}, action) => {
       const 
         goal = action.payload,
         vision = state[goal.visionId];
-      return {
-        ...state,
-        [vision.id]: {
-          ...vision,
-          goals: [...vision.goals, goal.id]
-        }
-      };
+      if (state[vision.id].goals.includes(goal.id)) {
+        return state;
+      } else {
+        return {
+          ...state,
+          [vision.id]: {
+            ...vision,
+            goals: [...vision.goals, goal.id]
+          }
+        };
+      }
     default: 
       return state;
   }
