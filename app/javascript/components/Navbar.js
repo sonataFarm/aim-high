@@ -7,13 +7,16 @@ import CreateGoalButton from './CreateGoalButton';
 const useStyles = makeStyles((theme) => ({
   container: {
     background: theme.palette.primary.main,
-    height: '100%',
-    width: '100%',
+    height: 'inherit',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '10px',
-    color: 'white'
+    color: 'white',
+    position: 'fixed',
+    top: 0,
+    left: '280px',
+    right: 0,
   },
   menu: {
     display: 'flex',

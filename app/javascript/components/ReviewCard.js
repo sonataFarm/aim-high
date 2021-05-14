@@ -48,11 +48,11 @@ const ReviewCard = ({ review, dispatch }) => {
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Review on { moment(review.created_at).format('dddd MMMM Do, YYYY') }
+          { moment(review.created_at).format('dddd MMMM Do, YYYY') }
         </Typography>
           <div className={classes.description}>
             <EditableTextField 
-              label="Body"
+              label="Review"
               handleUpdate={handleUpdate}
             >
               { review.body }

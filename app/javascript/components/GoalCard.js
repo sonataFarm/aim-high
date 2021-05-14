@@ -55,7 +55,14 @@ const GoalCard = ({ goal, history }) => {
           </div>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={handleClick}>View Goal</Button>
+        <Button 
+          size="small" 
+          color="primary" 
+          // variant="outlined" 
+          onClick={handleClick}
+        >
+          View Goal
+        </Button>
       </CardActions>
     </Card>
   );

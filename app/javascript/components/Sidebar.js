@@ -15,7 +15,8 @@ const styles = (theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    borderRight: '1px solid black'
+    borderRight: '1px solid black',
+    background: theme.palette.primary.light
   },
   header: {
     background: theme.palette.primary.dark,
@@ -74,7 +75,7 @@ class Sidebar extends React.Component {
         >
           <List className={this.props.classes.header}>
             <ListItemLink to="/goals" primary="Goals" icon={<StarHalf />} />
-            <ListItemLink to="/review" primary="To Review" icon={<AssignmentTurnedIn />} />
+            <ListItemLink to="/Zreview" primary="To Review" icon={<AssignmentTurnedIn />} />
           </List>
           <Divider />
           <List disablePadding>
@@ -97,6 +98,7 @@ class Sidebar extends React.Component {
               </div>
             ))}
           </List>
+          <Divider />
         </Drawer>
       </div>
     );
