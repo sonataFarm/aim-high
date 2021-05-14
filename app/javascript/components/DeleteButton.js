@@ -48,12 +48,10 @@ const DeleteButton = ({ confirmMsg, handleDelete }) => {
   
   return (
     <div>
-      <div onClick={handleClick}>
-        <div className={classes.btnIcon}>
-          <IconButton>
-            <HighlightOff color="disabled" />
-          </IconButton>
-        </div>
+      <div className={classes.btnIcon} onClick={handleClick}>
+        <IconButton>
+          <HighlightOff color="disabled" />
+        </IconButton>
       </div>
       <Modal open={open} onClose={handleClose} title="Delete" >
         <div className={classes.modalContent}>
@@ -63,9 +61,7 @@ const DeleteButton = ({ confirmMsg, handleDelete }) => {
           <Button color="error" variant="contained" onClick={handleSubmit}>Delete</Button>
         </div>
       </Modal>
-      
     </div>
-
   );
 }
 

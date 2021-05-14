@@ -24,6 +24,19 @@ const classes = {
     marginTop: '30px',
     marginBottom: '30px'
   },
+
+  headerTop: {
+    display: 'flex',
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    '& > div': {
+      position: 'absolute',
+      top: 0,
+      right: 100
+    },
+  },
   accordionContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -67,11 +80,13 @@ class GoalDetail extends React.Component {
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
-          <DeleteButton 
-            confirmMsg="Are you sure you want to delete this goal?" 
-            handleDelete={this.handleDelete}
-          />
-          <Typography variant="subtitle1" align="center">Goal</Typography>
+          <div className={this.props.classes.headerTop}>
+            <Typography variant="subtitle1">Goal</Typography>
+            <DeleteButton 
+              confirmMsg="Are you sure you want to delete this goal?" 
+              handleDelete={this.handleDelete}
+            />
+          </div>
           <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>
           <Typography variant="subtitle2" align="center">
             (From Vision: <Link to={`/visions/${vision.id}`}>{vision.title}</Link>)
