@@ -8,6 +8,7 @@ json.deadline goal.deadline
 json.evidence goal.evidence
 json.satisfaction goal.satisfaction
 json.visionId goal.vision.id
+json.nextReviewDate goal.next_review_date
 
 json.obstacles goal.obstacles.map do |o|
   json.id o.id

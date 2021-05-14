@@ -11,4 +11,12 @@ class Goal < ApplicationRecord
   has_many :reviews
 
   accepts_nested_attributes_for :obstacles
+
+  def next_review_date
+    if reviews.any?
+      reviews.last.created_at.to_date + 7.day
+    else
+      created_at.to_date
+    end
+  end
 end
