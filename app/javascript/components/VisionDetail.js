@@ -26,10 +26,6 @@ const classes = {
     '& > div': {
       width: '80%'
     }
-  },
-  cardGridContainer: {
-    marginLeft: '20px',
-    marginRight: '20px'
   }
 };
 
@@ -85,9 +81,7 @@ class VisionDetail extends React.Component {
             align="center"
             gutterBottom
           >Related Goals</Typography>
-          <div className={this.props.classes.cardGridContainer}>
           <CardGrid cards={cards} />
-          </div>
         </div>
       </div>
     );

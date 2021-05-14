@@ -1,15 +1,26 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles(theme => ({
+  cardGridContainer: {
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(5)
+  }
+}));
 
 const CardGrid = ({ cards }) => {
+  const classes = useStyles();
+
   return (
-    <Grid container spacing={3}>
-      {cards.map((card, idx) => (
-        <Grid key={idx} item xs={12} sm={6} md={4}>
-          {card}
-        </Grid>
-      ))}
-    </Grid>
+    <div className={classes.cardGridContainer}>
+      <Grid container spacing={3}>
+        {cards.map((card, idx) => (
+          <Grid key={idx} item xs={12} sm={6} md={4}>
+            {card}
+          </Grid>
+        ))}
+      </Grid>
+    </div>
   );
 }
 
