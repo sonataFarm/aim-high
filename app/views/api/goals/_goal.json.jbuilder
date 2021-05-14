@@ -19,4 +19,5 @@ json.reviews goal.reviews.map do |g|
   json.id g.id
   json.created_at g.created_at
   json.body g.body
+  json.goalId g.goal.id
 end
