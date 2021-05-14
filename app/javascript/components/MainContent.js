@@ -4,6 +4,7 @@ import GoalDetail from './GoalDetail';
 import VisionDetail from './VisionDetail';
 import CreateGoalForm from './CreateGoalForm';
 import CreateVisionForm from './CreateVisionForm';
+import GoalsIndex from './GoalsIndex';
 
 const MainContent = () => (
   <div>
@@ -19,6 +20,9 @@ const MainContent = () => (
       </Route>
       <Route path="/visions/:id">
         <VisionDetail />
+      </Route>
+      <Route exact path="/goals">
+        <GoalsIndex />
       </Route>
     </Switch>
   </div>
