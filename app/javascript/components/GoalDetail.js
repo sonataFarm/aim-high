@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import Accordion from './Accordion';
@@ -30,7 +30,7 @@ class GoalDetail extends React.Component {
   }
 
   render() {
-    const { goal } = this.props;
+    const { goal, vision } = this.props;
     if (this.loading) {
       return (
         <div>
@@ -42,28 +42,31 @@ class GoalDetail extends React.Component {
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
-          <Typography variant="subtitle2" align="center">Goal</Typography>
-          <Typography variant="h3" align="center">{goal.title}</Typography>
+          <Typography variant="subtitle1" align="center">Goal</Typography>
+          <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>
+          <Typography variant="subtitle2" align="center">
+            (From Vision: <Link to={`/visions/${vision.id}`}>{vision.title}</Link>)
+            </Typography>
         </div>
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
-            <Typography>{goal.motivation}</Typography>
+            <Typography variant="body2">{goal.motivation}</Typography>
           </Accordion>
 
           <Accordion title="Impact">
-            <Typography>{goal.impact}</Typography>
+            <Typography variant="body2">{goal.impact}</Typography>
           </Accordion>
 
           <Accordion title="Strategy">
-            <Typography>{goal.strategy}</Typography>
+            <Typography variant="body2">{goal.strategy}</Typography>
           </Accordion>
 
           <Accordion title="Obstacles">
-            <Typography>{'TODO'}</Typography>
+            <Typography variant="body2">{'TODO'}</Typography>
           </Accordion>
 
           <Accordion title="Monitoring">
-            <Typography>{goal.evidence}</Typography>
+            <Typography variant="body2">{goal.evidence}</Typography>
           </Accordion>
         </div>
       </div>
@@ -71,8 +74,12 @@ class GoalDetail extends React.Component {
   } 
 }
 
-const mapStateToProps = (state, ownProps) => ({ 
-  goal: state.entities.goals[ownProps.match.params.id]
-});
+const mapStateToProps = (state, ownProps) => { 
+  const goal = state.entities.goals[ownProps.match.params.id];
+  return ({
+    goal,
+    vision: goal && state.entities.visions[goal.visionId]
+  });
+};
 
 export default withRouter(connect(mapStateToProps, null)(withStyles(classes)(GoalDetail)));

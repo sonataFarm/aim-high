@@ -62,8 +62,6 @@ class Sidebar extends React.Component {
       return <CircularProgress />;
     }
 
-    // debugger;
-
     const { visions, goals } = this.props;
     return (
       <div>
@@ -106,8 +104,8 @@ class Sidebar extends React.Component {
 }
   
 const mapStateToProps = state => ({
-  goals: state.entities.goals,
   visions: denormalizeEntities(state.entities.visions),
+  goals: state.entities.goals,
   loading: state.ui.loading.visions || state.ui.loading.goals
 });
 
