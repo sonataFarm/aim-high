@@ -21,7 +21,8 @@ const useStyles = makeStyles({
     boxOrient: 'vertical',
     height: '100px',
     overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    textOverflow: 'ellipsis',
+    paddingTop: '6px',
   },
   bullet: {
     display: 'inline-block',
@@ -50,7 +51,10 @@ const ReviewCard = ({ review, dispatch }) => {
           Review on { moment(review.created_at).format('dddd MMMM Do, YYYY') }
         </Typography>
           <div className={classes.description}>
-            <EditableTextField handleUpdate={handleUpdate}>
+            <EditableTextField 
+              label="Body"
+              handleUpdate={handleUpdate}
+            >
               { review.body }
             </EditableTextField>              
           </div>

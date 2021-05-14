@@ -1,14 +1,17 @@
 import { TextField, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 
-const styles = {
+const styles = theme => ({
   body: {
     width: '100%',
     '&:hover': {
       cursor: 'text'
     }
+  },
+  resize: {
+    fontSize: theme.typography.body2.fontSize
   }
-};
+});
 
 class EditableTextField extends React.Component {
   constructor(props) {
@@ -54,6 +57,7 @@ class EditableTextField extends React.Component {
   setWrapperRef = node => { this.wrapperRef = node; };
 
   render() {
+    const { label } = this.props;
     if (!this.state.editable) {
       return (
         <Typography 
@@ -68,11 +72,14 @@ class EditableTextField extends React.Component {
     } else {
       return (
         <TextField 
+          InputProps={{
+            classes: { input: this.props.classes.resize }
+          }}
           ref={this.setWrapperRef}
           type="text"
           variant="outlined"
           fullWidth
-          label="Motivation"
+          label={label}
           required
           value={this.state.value}
           onChange={this.handleChange}

@@ -65,11 +65,13 @@ class VisionDetail extends React.Component {
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
             <EditableTextField
+              label="Motivation"
               handleUpdate={this.handleUpdate('motivation')}
             >{vision.motivation}</EditableTextField>
           </Accordion>
           <Accordion title="Impact">
             <EditableTextField
+              label="Impact"
               handleUpdate={this.handleUpdate('impact')}
             >{vision.impact}</EditableTextField>
           </Accordion>
