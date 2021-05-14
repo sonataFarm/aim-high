@@ -14,6 +14,7 @@ json.obstacles goal.obstacles.map do |o|
   json.id o.id
   json.description o.description
   json.solution o.solution
+  json.goalId o.goal.id
 end
 
 json.reviews goal.reviews.map do |g|

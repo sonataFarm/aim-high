@@ -1,4 +1,5 @@
-import { RECEIVE_GOAL, RECEIVE_GOALS } from '../../actions/goal-actions';
+import _ from 'lodash';
+import { RECEIVE_GOAL, RECEIVE_GOALS, REMOVE_GOAL } from '../../actions/goal-actions';
 import { normalizeEntities } from '../../util/normalize';
 
 const ObstaclesReducer = (state = {}, action) => {
@@ -12,11 +13,11 @@ const ObstaclesReducer = (state = {}, action) => {
       obstacles = action.payload.reduce((o, g) => {
         return [ ...o, ...g.obstacles ];
       }, []);
-
-      return {
-        ...state,
-        ...normalizeEntities(obstacles)
-      };
+      
+      return { ...state, ...normalizeEntities(obstacles) };
+    case REMOVE_GOAL:
+      debugger;
+      return _.pickBy(state, (v, k) => v.goalId != action.payload)
     default: 
       return state;
   }

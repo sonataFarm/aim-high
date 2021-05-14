@@ -1,5 +1,6 @@
+import _ from 'lodash';
 import { normalizeEntities } from '../../util/normalize';
-import { RECEIVE_GOAL, RECEIVE_GOALS } from '../../actions/goal-actions';
+import { RECEIVE_GOAL, RECEIVE_GOALS, REMOVE_GOAL } from '../../actions/goal-actions';
 import { RECEIVE_REVIEW } from '../../actions/review-actions';
 
 const ReviewsReducer = (state = {}, action) => {
@@ -16,8 +17,9 @@ const ReviewsReducer = (state = {}, action) => {
       reviews = action.payload.reduce((r, g) => (
         [ ...r, ...g.reviews ]
       ), []);
-
       return { ...state, ...normalizeEntities(reviews) };
+    case REMOVE_GOAL:
+      return _.pickBy(state, (v, k) => v.goalId != action.payload); 
     default: 
       return state;
   }
