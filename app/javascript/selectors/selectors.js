@@ -1,5 +1,12 @@
+import moment from 'moment';
 import { denormalizeEntities } from '../util/normalize';
 
 export const selectReviewsByGoal = (goalId, state) => (
   denormalizeEntities(state.entities.reviews).filter(r => r.goalId === goalId)
+);
+
+export const selectGoalsToReview = state => (
+  denormalizeEntities(state.entities.goals).filter(g => (
+    moment() > moment(g.nextReviewDate)
+  ))
 );
