@@ -23,6 +23,10 @@ const createGoal = goal => (
   }})
 );
 
+const fetchGoal = id => (
+  instance.get(`goals/${id}`)
+);
+
 const fetchAllGoals = () => (
   instance.get('goals')
 );
@@ -56,6 +60,7 @@ export default {
   logOut,
   register,
   createGoal,
+  fetchGoal,
   fetchAllGoals,
   updateGoal,
   createVision,

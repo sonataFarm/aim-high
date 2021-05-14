@@ -13,6 +13,13 @@ export const fetchAllGoals = () => dispatch => {
   );
 };
 
+export const fetchGoal = id => dispatch => (
+  api.fetchGoal(id).then(
+    res => dispatch(receiveGoal(res.data)),
+    err => dispatch(receiveErrors(err.response.data))
+  )
+);
+
 export const createGoal = goal => dispatch => (
   api.createGoal(goal).then(
     res => dispatch(receiveGoal(res.data)),

@@ -10,6 +10,7 @@ import Accordion from './Accordion';
 import EditableTextField from './EditableTextField';
 import CardGrid from './CardGrid';
 import ReviewCard from './ReviewCard';
+import CreateReviewForm from './CreateReviewForm';
 
 const classes = {
   container: {
@@ -32,7 +33,7 @@ const classes = {
 
 class GoalDetail extends React.Component {
   get loading() {
-    return !this.props.goal;
+    return !this.props.goal || !this.props.vision || !this.props.reviews;
   }
 
   handleUpdate = key => val => {
@@ -42,10 +43,9 @@ class GoalDetail extends React.Component {
   };
 
   render() {
-    const { goal, vision, reviews } = this.props;
+    const { goal, vision, reviews, needsReview } = this.props;
 
-    const cards = reviews.map(r => <ReviewCard review={r} />);
-
+    
     if (this.loading) {
       return (
         <div>
@@ -54,6 +54,8 @@ class GoalDetail extends React.Component {
       );
     }
 
+    const cards = reviews.map(r => <ReviewCard review={r} />);
+    
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
@@ -63,21 +65,25 @@ class GoalDetail extends React.Component {
             (From Vision: <Link to={`/visions/${vision.id}`}>{vision.title}</Link>)
             </Typography>
         </div>
+        { needsReview ? <CreateReviewForm goal={goal} /> : null }
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
             <EditableTextField
               handleUpdate={this.handleUpdate('motivation')}
+              label="Motivation"
             >{goal.motivation}</EditableTextField>
           </Accordion>
           
           <Accordion title="Impact">
              <EditableTextField
+              label="Impact"
               handleUpdate={this.handleUpdate('impact')}
             >{goal.impact}</EditableTextField>
           </Accordion>
 
           <Accordion title="Strategy">
              <EditableTextField
+              label="Strategy"
               handleUpdate={this.handleUpdate('strategy')}
             >{goal.strategy}</EditableTextField>
           </Accordion>
@@ -88,6 +94,7 @@ class GoalDetail extends React.Component {
 
           <Accordion title="Monitoring">
              <EditableTextField
+              label="Monitoring"
               handleUpdate={this.handleUpdate('monitoring')}
             >{goal.evidence}</EditableTextField>
           </Accordion>
@@ -95,10 +102,13 @@ class GoalDetail extends React.Component {
         <div>
           <Typography 
             style={{ paddingTop: '10px'}} 
-            variant="subtitle2" 
+            variant="body2" 
+            color="textSecondary"
             align="center"
             gutterBottom
-          >Reviews</Typography>
+          >Next review due
+            { ' ' + moment(goal.nextReviewDate).format('dddd, MMMM Do') }
+         </Typography>
           <div className={this.props.classes.cardGridContainer}>
             <CardGrid cards={cards} />
           </div>
@@ -110,14 +120,21 @@ class GoalDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => { 
   const goal = state.entities.goals[ownProps.match.params.id];
-  const vision = goal ? state.entities.visions[goal.visionId] : null;
-  const reviews = goal ? selectReviewsByGoal(goal.id, state) : [];
-  const m = moment;
-  if (reviews.length) 1;
+  let vision, reviews, needsReview;
 
-  reviews.sort((a, b) => moment(b.created_at).isAfter(a.created_at) ? 1 : -1)
+  if (goal) {
+    vision = state.entities.visions[goal.visionId];
+    reviews = selectReviewsByGoal(goal.id, state);
+    reviews.sort((a, b) => moment(b.created_at).isAfter(a.created_at) ? 1 : -1);
   
-  return { goal, vision, reviews };
+    const 
+      now = moment(),
+      nextReviewDate = moment(goal.nextReviewDate);
+  
+    needsReview = now > nextReviewDate;
+  }
+
+  return { goal, vision, reviews, needsReview };
 };
 
 export default withRouter(connect(mapStateToProps, null)(withStyles(classes)(GoalDetail)));

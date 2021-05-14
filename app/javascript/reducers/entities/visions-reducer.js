@@ -12,7 +12,6 @@ const VisionsReducer = (state = {}, action) => {
     case RECEIVE_VISIONS:
       return { ...state, ...normalizeEntities(action.payload) };
     case RECEIVE_GOAL:
-      debugger;
       const 
         goal = action.payload,
         vision = state[goal.visionId];
