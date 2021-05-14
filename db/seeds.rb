@@ -37,6 +37,13 @@ require 'faker'
           solution: Faker::Lorem.paragraph_by_chars(number: rand(180...300))
         )
       end
+
+      rand(0..5).times do
+        Review.create(
+          goal: g,
+          body: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
+        )
+      end
     end
   end
 end

@@ -5,7 +5,6 @@ class Api::GoalsController < ApplicationController
   end
 
   def create
-    require 'pry'
     @goal = Goal.new(goal_params)
     @goal.user = current_user
     if @goal.save
