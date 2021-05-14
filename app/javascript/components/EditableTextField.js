@@ -20,6 +20,12 @@ class EditableTextField extends React.Component {
     };
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.children !== this.props.children) {
+      this.setState({ value: this.props.children });
+    }
+  }
+
   componentDidMount = () => {
     document.addEventListener('mousedown', this.handleClickOutside);
   };
