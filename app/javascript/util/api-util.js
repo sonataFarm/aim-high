@@ -16,15 +16,15 @@ const register = user => (
   instance.post('users', { user })
 );
 
-const fetchAllGoals = () => (
-  instance.get('goals')
-);
-
 const createGoal = goal => (
   instance.post('goals', { goal: {
     ...goal,
     obstaclesAttributes: goal.obstacles
   }})
+);
+
+const fetchAllGoals = () => (
+  instance.get('goals')
 );
 
 const updateGoal = goal => (
@@ -35,25 +35,34 @@ const createVision = vision => (
   instance.post('visions', { vision })
 );
 
-const updateVision = vision => (
-  instance.patch(`visions/${vision.id}`, { vision })
-);
-
-
 const fetchAllVisions = () => (
   instance.get('visions')
 );
 
+const updateVision = vision => (
+  instance.patch(`visions/${vision.id}`, { vision })
+);
+
+const createReview = review => (
+  instance.post('reviews', { review })
+);
+
+const updateReview = review => (
+  instance.patch(`reviews/${review.id}`, { review })
+);
+
 export default {
-  createGoal,
-  createVision,
-  fetchAllGoals,
-  fetchAllVisions,
   logIn,
   logOut,
   register,
+  createGoal,
+  fetchAllGoals,
   updateGoal,
-  updateVision
+  createVision,
+  updateVision,
+  fetchAllVisions,
+  createReview,
+  updateReview
 };
 
-window.updateGoal = updateGoal;
+window.createReview = createReview;
