@@ -1,13 +1,23 @@
+import _ from 'lodash';
 import { RECEIVE_GOAL, RECEIVE_GOALS } from '../../actions/goal-actions';
+import { RECEIVE_REVIEW } from '../../actions/review-actions';
 import { normalizeEntity, normalizeEntities } from '../../util/normalize';
 
 const GoalsReducer = (state = {}, action) => {
+  let goal; 
+
   switch (action.type) {
     case RECEIVE_GOAL:
-      const goal = action.payload;
+      goal = action.payload;
       return { ...state, [goal.id]: normalizeEntity(goal) }
     case RECEIVE_GOALS:
       return { ...state, ...normalizeEntities(action.payload) };
+    case RECEIVE_REVIEW:
+      const review = action.payload;
+      goal = state[review.goalId];
+      return { ...state, [goal.id]: {
+        ...goal, reviews: _.uniq([ ...goal.reviews, review.id ])
+      }}
     default: 
       return state;
   }

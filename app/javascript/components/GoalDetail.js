@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import moment from 'moment';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import { updateGoal } from '../actions/goal-actions';
+import { selectReviewsByGoal } from '../selectors/selectors';
 import Accordion from './Accordion';
 import EditableTextField from './EditableTextField';
-
+import CardGrid from './CardGrid';
+import ReviewCard from './ReviewCard';
 
 const classes = {
   container: {
@@ -32,16 +35,17 @@ class GoalDetail extends React.Component {
     return !this.props.goal;
   }
 
-
   handleUpdate = key => val => {
     const { id } = this.props.goal;
-    this.props.dispatch(updateGoal({
-      id, [key]: val
-    }));
+    
+    this.props.dispatch(updateGoal({ id, [key]: val }));
   };
 
   render() {
-    const { goal, vision } = this.props;
+    const { goal, vision, reviews } = this.props;
+
+    const cards = reviews.map(r => <ReviewCard review={r} />);
+
     if (this.loading) {
       return (
         <div>
@@ -65,7 +69,7 @@ class GoalDetail extends React.Component {
               handleUpdate={this.handleUpdate('motivation')}
             >{goal.motivation}</EditableTextField>
           </Accordion>
-
+          
           <Accordion title="Impact">
              <EditableTextField
               handleUpdate={this.handleUpdate('impact')}
@@ -88,6 +92,17 @@ class GoalDetail extends React.Component {
             >{goal.evidence}</EditableTextField>
           </Accordion>
         </div>
+        <div>
+          <Typography 
+            style={{ paddingTop: '10px'}} 
+            variant="subtitle2" 
+            align="center"
+            gutterBottom
+          >Reviews</Typography>
+          <div className={this.props.classes.cardGridContainer}>
+            <CardGrid cards={cards} />
+          </div>
+        </div>
       </div>
     );
   } 
@@ -95,10 +110,14 @@ class GoalDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => { 
   const goal = state.entities.goals[ownProps.match.params.id];
-  return ({
-    goal,
-    vision: goal && state.entities.visions[goal.visionId]
-  });
+  const vision = goal ? state.entities.visions[goal.visionId] : null;
+  const reviews = goal ? selectReviewsByGoal(goal.id, state) : [];
+  const m = moment;
+  if (reviews.length) 1;
+
+  reviews.sort((a, b) => moment(b.created_at).isAfter(a.created_at) ? 1 : -1)
+  
+  return { goal, vision, reviews };
 };
 
 export default withRouter(connect(mapStateToProps, null)(withStyles(classes)(GoalDetail)));
