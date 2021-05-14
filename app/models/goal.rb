@@ -7,8 +7,8 @@ class Goal < ApplicationRecord
   belongs_to :vision
   belongs_to :user
 
-  has_many :obstacles
-  has_many :reviews
+  has_many :obstacles, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   accepts_nested_attributes_for :obstacles
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, IconButton, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import { updateGoal } from '../actions/goal-actions';
 import { selectReviewsByGoal } from '../selectors/selectors';
@@ -11,6 +11,9 @@ import EditableTextField from './EditableTextField';
 import CardGrid from './CardGrid';
 import ReviewCard from './ReviewCard';
 import CreateReviewForm from './CreateReviewForm';
+import { Delete, HighlightOff } from '@material-ui/icons';
+import DeleteButton from './DeleteButton';
+import { deleteGoal } from '../actions/goal-actions';
 
 const classes = {
   container: {
@@ -42,6 +45,11 @@ class GoalDetail extends React.Component {
     this.props.dispatch(updateGoal({ id, [key]: val }));
   };
 
+  handleDelete = () => {
+    this.props.dispatch(deleteGoal(this.props.goal.id));
+    this.props.history.push('/goals');
+  }
+
   render() {
     const { goal, vision, reviews, needsReview } = this.props;
 
@@ -59,6 +67,10 @@ class GoalDetail extends React.Component {
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
+          <DeleteButton 
+            confirmMsg="Are you sure you want to delete this goal?" 
+            handleDelete={this.handleDelete}
+          />
           <Typography variant="subtitle1" align="center">Goal</Typography>
           <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>
           <Typography variant="subtitle2" align="center">

@@ -23,6 +23,10 @@ const createGoal = goal => (
   }})
 );
 
+const deleteGoal = id => (
+  instance.delete(`goals/${id}`)
+)
+
 const fetchGoal = id => (
   instance.get(`goals/${id}`)
 );
@@ -60,6 +64,7 @@ export default {
   logOut,
   register,
   createGoal,
+  deleteGoal,
   fetchGoal,
   fetchAllGoals,
   updateGoal,
@@ -69,3 +74,5 @@ export default {
   createReview,
   updateReview
 };
+
+window.deleteGoal = deleteGoal

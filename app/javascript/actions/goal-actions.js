@@ -3,6 +3,7 @@ import { receiveErrors } from './ui-actions';
 
 export const RECEIVE_GOAL = 'RECEIVE_GOAL';
 export const RECEIVE_GOALS = 'RECEIVE_GOALS';
+export const REMOVE_GOAL = 'REMOVE_GOAL';
 export const BEGIN_LOADING_GOALS = 'BEGIN_LOADING_GOALS';
 
 export const fetchAllGoals = () => dispatch => {
@@ -34,6 +35,13 @@ export const updateGoal = goal => dispatch => {
   )
 };
 
+export const deleteGoal = id => dispatch => {
+  api.deleteGoal(id).then(
+    res => dispatch(removeGoal(id)),
+    err => dispatch(receiveErrors(err.response.data))
+  )
+};
+
 export const beginLoadingGoals = () => ({
   type: BEGIN_LOADING_GOALS
 });
@@ -46,4 +54,9 @@ export const receiveGoals = goals => ({
 export const receiveGoal = goal => ({
   type: RECEIVE_GOAL,
   payload: goal
+});
+
+export const removeGoal = id => ({
+  type: REMOVE_GOAL,
+  payload: id
 });

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { RECEIVE_GOAL, RECEIVE_GOALS } from '../../actions/goal-actions';
+import { RECEIVE_GOAL, RECEIVE_GOALS, REMOVE_GOAL } from '../../actions/goal-actions';
 import { RECEIVE_REVIEW } from '../../actions/review-actions';
 import { normalizeEntity, normalizeEntities } from '../../util/normalize';
 
@@ -18,6 +18,10 @@ const GoalsReducer = (state = {}, action) => {
       return { ...state, [goal.id]: {
         ...goal, reviews: _.uniq([ ...goal.reviews, review.id ])
       }}
+    case REMOVE_GOAL:
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     default: 
       return state;
   }
