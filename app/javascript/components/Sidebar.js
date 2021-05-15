@@ -75,7 +75,7 @@ class Sidebar extends React.Component {
         >
           <List className={this.props.classes.header}>
             <ListItemLink to="/goals" primary="Goals" icon={<StarHalf />} />
-            <ListItemLink to="/Zreview" primary="To Review" icon={<AssignmentTurnedIn />} />
+            <ListItemLink to="/review" primary="To Review" icon={<AssignmentTurnedIn />} />
           </List>
           <Divider />
           <List disablePadding>
