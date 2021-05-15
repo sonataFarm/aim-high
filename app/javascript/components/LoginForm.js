@@ -26,9 +26,25 @@ const styles = theme => ({
 });
 
 class LoginForm extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const { prefilledCredentials } = props;
+    const username = prefilledCredentials ? prefilledCredentials.username : '';
+    const password = prefilledCredentials ? prefilledCredentials.password : '';
+
+    this.state = { formData: { username, password }, errors: [] };
+  }
+  
+  handleInputChange = (inputName, e) => {
+    this.setState({ formData: 
+      { ...this.state.formData, [inputName]: e.currentTarget.value } 
+    });
+  }
+
   handleSubmit = () => {
     if (!this.validateInputs()) return;
-
+    
     const { username, password } = this.state.formData;
     this.props.logIn({ username, password });
   }
@@ -45,29 +61,6 @@ class LoginForm extends React.Component {
     }
 
     return true;
-  }
-
-  handleInputChange = (inputName, e) => {
-    this.setState(
-      { formData: { ...this.state.formData, [inputName]: e.currentTarget.value } }
-    );
-  }
-
-  constructor(props) {
-    super(props);
-
-    const { prefilledCredentials } = props;
-
-    const username = prefilledCredentials ? prefilledCredentials.username : '';
-    const password = prefilledCredentials ? prefilledCredentials.password : '';
-
-    this.state = {
-      formData: {
-        username,
-        password
-      },
-      errors: []
-    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -124,7 +117,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  logIn: (user) => dispatch(logIn(user))
+  logIn: user => dispatch(logIn(user))
 });
 
 export default connect(

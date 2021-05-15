@@ -6,6 +6,7 @@ import { fetchAllVisions } from '../actions/vision-actions';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import Navbar from './Navbar';
+import { logOut } from '../actions/session-actions';
 
 const navbarHeight = 50;
 
@@ -32,6 +33,14 @@ class HomePage extends React.Component {
   componentDidMount() {
     this.props.fetchAllGoals();
     this.props.fetchAllVisions();
+
+    if (this.props.currentUser.username === 'aim_high_demo') {
+      window.addEventListener('beforeunload', e => {
+        e.preventDefault();
+        e.returnValue = '';
+        this.props.logOut();
+      })
+    }
   }
   
   render() {
@@ -51,11 +60,15 @@ class HomePage extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.session.currentUser
+})
 const mapDispatchToProps = dispatch => ({
   fetchAllGoals: () => dispatch(fetchAllGoals()),
-  fetchAllVisions: () => dispatch(fetchAllVisions())
+  fetchAllVisions: () => dispatch(fetchAllVisions()),
+  logOut: () => dispatch(logOut())
 });
 
 export default connect(
-  null, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps
 )(withStyles(styles)(HomePage));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
@@ -7,16 +7,18 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import App from './App';
 import theme from '../styles/theme';
 
-const Root = ({ store }) => (
-  <Provider store={store}>
-    <MuiPickersUtilsProvider utils={MomentUtils}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
-    </MuiPickersUtilsProvider>
-  </Provider>
-);
+const Root = ({ store }) => {
+  return (
+    <Provider store={store}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
+    </Provider>
+  )
+};
 
 export default Root;

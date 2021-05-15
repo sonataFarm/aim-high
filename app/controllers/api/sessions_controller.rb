@@ -1,4 +1,6 @@
 class Api::SessionsController < ApplicationController
+  after_action :reseed_guest_demo, only: [ :destroy ]
+
   def create
     @user = User.find_by_credentials(
       user_params[:username], user_params[:password]
@@ -19,5 +21,9 @@ class Api::SessionsController < ApplicationController
     else
       render json: ['Nobody signed in'], status: 404
     end
+  end
+
+  def reseed_guest_demo
+    SeedGuestDemo.perform
   end
 end

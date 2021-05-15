@@ -7,8 +7,8 @@ class User < ApplicationRecord
 
   before_validation :ensure_session_token
 
-  has_many :visions
-  has_many :goals
+  has_many :visions, dependent: :destroy
+  has_many :goals, dependent: :destroy
   has_many :reviews, through: :goals
   has_many :obstacles, through: :goals
 

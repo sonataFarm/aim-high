@@ -12,15 +12,15 @@ export const register = user => dispatch => {
   );
 };
 
-export const logIn = user => dispatch => {
+export const logIn = user => dispatch => (
   api.logIn(user).then(
     res => dispatch(receiveCurrentUser(res.data)),
     err => dispatch(receiveSessionErrors(err.response.data))
-  );
-};
+  )
+);
 
-export const logOut = user => dispatch => {
-  api.logOut(user).then(
+export const logOut = () => dispatch => {
+  api.logOut().then(
     res => dispatch(removeCurrentUser()),
     err => console.log(err)
   );
