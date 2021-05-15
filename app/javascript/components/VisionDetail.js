@@ -4,11 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { denormalizeEntities } from '../util/normalize';
-import { updateVision } from '../actions/vision-actions';
+import { updateVision, deleteVision } from '../actions/vision-actions';
 import Accordion from './Accordion';
 import GoalCard from './GoalCard';
 import CardGrid from './CardGrid';
 import EditableTextField from './EditableTextField';
+import DeleteButton from './DeleteButton';
 
 const classes = {
   container: {
@@ -18,6 +19,18 @@ const classes = {
   header: {
     marginTop: '30px',
     marginBottom: '30px'
+  },
+  headerTop: {
+    display: 'flex',
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    '& > div': {
+      position: 'absolute',
+      top: 0,
+      right: 100
+    },
   },
   accordionContainer: {
     display: 'flex',
@@ -41,6 +54,11 @@ class VisionDetail extends React.Component {
     }));
   }
 
+  handleDelete = () => {
+    this.props.dispatch(deleteVision(this.props.vision));
+    this.props.history.push('/goals');
+  }
+
   render() {
     const { vision, goals } = this.props;
 
@@ -56,10 +74,18 @@ class VisionDetail extends React.Component {
       (g => <GoalCard key={g.id} goal={g} />)
     );
 
+    const deleteConfirmMsg = "This action will delete this vision and all of its goals. Are you sure you want to continue?";
+
     return (
       <div className={this.props.classes.container}>
         <div className={this.props.classes.header}>
-          <Typography variant="subtitle1" align="center">Vision</Typography>
+          <div className={this.props.classes.headerTop}>
+            <Typography variant="subtitle1" align="center">Vision</Typography>
+            <DeleteButton
+              confirmMsg={deleteConfirmMsg}
+              handleDelete={this.handleDelete}
+            />
+          </div>
           <Typography variant="h3" align="center">{vision.title}</Typography>
         </div>
         <div className={this.props.classes.accordionContainer}>

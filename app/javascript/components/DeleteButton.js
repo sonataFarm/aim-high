@@ -55,7 +55,7 @@ const DeleteButton = ({ confirmMsg, handleDelete }) => {
       </div>
       <Modal open={open} onClose={handleClose} title="Delete" >
         <div className={classes.modalContent}>
-          <Typography color="">
+          <Typography>
             { confirmMsg }
           </Typography>
           <Button color="error" variant="contained" onClick={handleSubmit}>Delete</Button>

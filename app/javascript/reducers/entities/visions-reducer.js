@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { RECEIVE_VISION, RECEIVE_VISIONS } from '../../actions/vision-actions';
+import { RECEIVE_VISION, RECEIVE_VISIONS, REMOVE_VISION } from '../../actions/vision-actions';
 import { REMOVE_GOAL, RECEIVE_GOAL } from '../../actions/goal-actions';
 import { normalizeEntity, normalizeEntities } from '../../util/normalize';
 
@@ -26,10 +26,16 @@ const VisionsReducer = (state = {}, action) => {
         visionId = _.findKey(state, (v => v.goals.includes(goalId)));
       
       vision = state[visionId];
+      
+      if (!vision)
+        return state;
 
       return { ...state, [visionId]: { 
-        ...vision, goals: vision.goals.filter(g => g != goalId)
+        ...vision, goals: vision.goals.filter(g => g !== goalId)
       }};
+    case REMOVE_VISION:
+      const id = action.payload;
+      return _.pickBy(state, (v, k) => v.id !== id);
     default: 
       return state;
   }

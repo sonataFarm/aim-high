@@ -16,8 +16,7 @@ const ObstaclesReducer = (state = {}, action) => {
       
       return { ...state, ...normalizeEntities(obstacles) };
     case REMOVE_GOAL:
-      debugger;
-      return _.pickBy(state, (v, k) => v.goalId != action.payload)
+      return _.pickBy(state, (v, k) => v.goalId !== action.payload)
     default: 
       return state;
   }

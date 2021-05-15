@@ -51,6 +51,10 @@ const updateVision = vision => (
   instance.patch(`visions/${vision.id}`, { vision })
 );
 
+const deleteVision = id => (
+  instance.delete(`visions/${id}`)
+);
+
 const createReview = review => (
   instance.post('reviews', { review })
 );
@@ -69,10 +73,11 @@ export default {
   fetchAllGoals,
   updateGoal,
   createVision,
+  deleteVision,
   updateVision,
   fetchAllVisions,
   createReview,
   updateReview
 };
 
-window.deleteGoal = deleteGoal
+window.deleteVision = deleteVision

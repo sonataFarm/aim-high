@@ -24,7 +24,6 @@ const classes = {
     marginTop: '30px',
     marginBottom: '30px'
   },
-
   headerTop: {
     display: 'flex',
     position: 'relative',
