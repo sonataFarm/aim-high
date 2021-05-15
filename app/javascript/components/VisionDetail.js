@@ -10,6 +10,7 @@ import GoalCard from './GoalCard';
 import CardGrid from './CardGrid';
 import EditableTextField from './EditableTextField';
 import DeleteButton from './DeleteButton';
+import { RemoveCircle } from '@material-ui/icons';
 
 const classes = {
   container: {
@@ -84,6 +85,7 @@ class VisionDetail extends React.Component {
             <DeleteButton
               confirmMsg={deleteConfirmMsg}
               handleDelete={this.handleDelete}
+              icon={<RemoveCircle color="disabled" />}
             />
           </div>
           <Typography variant="h3" align="center">{vision.title}</Typography>

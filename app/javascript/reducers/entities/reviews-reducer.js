@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { normalizeEntities } from '../../util/normalize';
 import { RECEIVE_GOAL, RECEIVE_GOALS, REMOVE_GOAL } from '../../actions/goal-actions';
-import { RECEIVE_REVIEW } from '../../actions/review-actions';
+import { RECEIVE_REVIEW, REMOVE_REVIEW } from '../../actions/review-actions';
 
 const ReviewsReducer = (state = {}, action) => {
   let reviews;
@@ -10,6 +10,8 @@ const ReviewsReducer = (state = {}, action) => {
     case RECEIVE_REVIEW:
       const review = action.payload;
       return { ...state, [review.id]: review };
+    case REMOVE_REVIEW:
+      return _.pickBy(state, (v, k) => v.id !== action.payload);
     case RECEIVE_GOAL:
       reviews = action.payload.reviews;
       return { ...state, ...normalizeEntities(reviews) };

@@ -1,5 +1,5 @@
 import { Button, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { HighlightOff } from '@material-ui/icons';
+import { Clear, HighlightOff } from '@material-ui/icons';
 import React, { useState } from 'react';
 import Modal from './Modal';
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DeleteButton = ({ confirmMsg, handleDelete }) => {
+const DeleteButton = ({ confirmMsg, handleDelete, icon }) => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -49,8 +49,8 @@ const DeleteButton = ({ confirmMsg, handleDelete }) => {
   return (
     <div>
       <div className={classes.btnIcon} onClick={handleClick}>
-        <IconButton>
-          <HighlightOff color="disabled" />
+        <IconButton size="small">
+          { icon }
         </IconButton>
       </div>
       <Modal open={open} onClose={handleClose} title="Delete" >

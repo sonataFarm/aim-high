@@ -16,7 +16,7 @@ class Goal < ApplicationRecord
     if reviews.any?
       reviews.last.created_at.to_date + 7.day
     else
-      created_at.to_date
+      Date.today
     end
   end
 end

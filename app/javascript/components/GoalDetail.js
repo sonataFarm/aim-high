@@ -11,7 +11,7 @@ import EditableTextField from './EditableTextField';
 import CardGrid from './CardGrid';
 import ReviewCard from './ReviewCard';
 import CreateReviewForm from './CreateReviewForm';
-import { Delete, HighlightOff } from '@material-ui/icons';
+import { Delete, HighlightOff, RemoveCircle } from '@material-ui/icons';
 import DeleteButton from './DeleteButton';
 import { deleteGoal } from '../actions/goal-actions';
 
@@ -84,6 +84,7 @@ class GoalDetail extends React.Component {
             <DeleteButton 
               confirmMsg="Are you sure you want to delete this goal?" 
               handleDelete={this.handleDelete}
+              icon={<RemoveCircle color="disabled" />}
             />
           </div>
           <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>

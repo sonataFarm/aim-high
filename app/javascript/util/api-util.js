@@ -59,6 +59,10 @@ const createReview = review => (
   instance.post('reviews', { review })
 );
 
+const deleteReview = id => (
+  instance.delete(`reviews/${id}`)
+);
+
 const updateReview = review => (
   instance.patch(`reviews/${review.id}`, { review })
 );
@@ -77,7 +81,6 @@ export default {
   updateVision,
   fetchAllVisions,
   createReview,
+  deleteReview,
   updateReview
 };
-
-window.deleteVision = deleteVision

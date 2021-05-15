@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { RECEIVE_GOAL, RECEIVE_GOALS, REMOVE_GOAL } from '../../actions/goal-actions';
-import { RECEIVE_REVIEW } from '../../actions/review-actions';
+import { RECEIVE_REVIEW, REMOVE_REVIEW } from '../../actions/review-actions';
 import { normalizeEntity, normalizeEntities } from '../../util/normalize';
 
 const GoalsReducer = (state = {}, action) => {
@@ -22,6 +22,14 @@ const GoalsReducer = (state = {}, action) => {
       const newState = { ...state };
       delete newState[action.payload];
       return newState;
+    case REMOVE_REVIEW:
+      const 
+        reviewId = action.payload,
+        goalId = _.findKey(state, (g => g.reviews.includes(reviewId)));
+      
+      goal = state[goalId];
+      const reviews = goal.reviews.filter(id => id !== reviewId);
+      return { ...state, [goalId]: { ...goal, reviews } };
     default: 
       return state;
   }
