@@ -37,6 +37,7 @@ const LandingPage = () => {
 
   const [ loginModalOpen, setLoginModalOpen ] = useState(false);
   const [ signupModalOpen, setSignupModalOpen ] = useState(false);
+  const [ guestDemoModalOpen, setGuestDemoModalOpen ] = useState(false);
 
   return (
     <div className={classes.container}>
@@ -72,14 +73,25 @@ const LandingPage = () => {
               <Grid item>
                 <Button 
                   variant="contained" 
-                  color="secondary" 
+                  color="primary" 
                   size="large" 
                   className={classes.button}
                   onClick={() => setSignupModalOpen(true)}
                 >
                   Sign Up
                 </Button>
-              </Grid>f
+              </Grid>
+              <Grid container justify="center">
+                <Button 
+                  variant="contained" 
+                  color="secondary" 
+                  size="large" 
+                  className={classes.button}
+                  onClick={() => setGuestDemoModalOpen(true)}
+                >
+                  Guest Demo
+                </Button>
+              </Grid>
             </Grid>
           <Grid item xs={2} />
         </Grid>
@@ -97,6 +109,15 @@ const LandingPage = () => {
         title="Register"
       >
         <RegisterForm />
+      </Modal>
+      <Modal
+        open={guestDemoModalOpen}
+        onClose={() => setGuestDemoModalOpen(false)}
+        title="Guest Demo"
+      >
+        <LoginForm 
+          prefilledCredentials={{ username: 'aim_high_demo', password: '12345678'}}
+        />
       </Modal>
     </div>
   );

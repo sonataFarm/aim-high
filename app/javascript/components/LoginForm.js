@@ -55,10 +55,16 @@ class LoginForm extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const { prefilledCredentials } = props;
+
+    const username = prefilledCredentials ? prefilledCredentials.username : '';
+    const password = prefilledCredentials ? prefilledCredentials.password : '';
+
     this.state = {
       formData: {
-        username: '',
-        password: '',
+        username,
+        password
       },
       errors: []
     };
