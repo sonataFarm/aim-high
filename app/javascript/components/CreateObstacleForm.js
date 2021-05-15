@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const CreateObstacleForm = (props) => {
   const classes = useStyles();
-  const blankForm = { description: '', solution: ' '};
+  const blankForm = { description: '', solution: '' };
   
   const [ open, setOpen ] = useState(false);
   const [ formData, setFormData ] = useState(blankForm);

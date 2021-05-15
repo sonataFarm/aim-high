@@ -6,6 +6,7 @@ import CreateGoalButton from './CreateGoalButton';
 
 const useStyles = makeStyles((theme) => ({
   container: {
+    zIndex: 100,
     background: theme.palette.primary.main,
     height: 'inherit',
     display: 'flex',
