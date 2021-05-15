@@ -1,4 +1,7 @@
 class Api::ReviewsController < ApplicationController
+  before_action :load_review, only: [ :update, :destroy ]
+  before_action :require_authorization, only: [ :update, :destroy ]
+
   def create
     @review = Review.new(review_params)
     
@@ -10,30 +13,32 @@ class Api::ReviewsController < ApplicationController
   end
 
   def update
-    @review = Review.find_by_id(params[:id])
-    if !@review
-      render json: ['Review not found'], status: 404
-    else
-      if @review.update(review_params.except(:goal_id))
-        render 'api/reviews/show.json.jbuilder'
-      else 
-        render json: @review.errors.full_messages, status: 422
-      end
+    if @review.update(review_params.except(:goal_id))
+      render 'api/reviews/show.json.jbuilder'
+    else 
+      render json: @review.errors.full_messages, status: 422
     end
   end
 
   def destroy
-    @review = Review.find_by_id(params[:id])
-
-    if @review
-      @review.destroy
-      render json: {}
-    else
-      render json: ['Review not found'], status: 404
-    end
+    @review.destroy
+    render json: {}
   end
 
   def review_params
     params.require(:review).permit(:body, :goal_id)
+  end
+
+  def load_review
+    @review = Review.find_by_id(params[:id])
+    unless @review
+      render json: ['Resource not found'], status: 404
+    end
+  end
+
+  def require_authorization
+    unless current_user && current_user.reviews.include?(@review)
+      render json: ['You are not authorized to access this resource']
+    end
   end
 end
