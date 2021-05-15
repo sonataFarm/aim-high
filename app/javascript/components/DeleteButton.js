@@ -58,7 +58,7 @@ const DeleteButton = ({ confirmMsg, handleDelete, icon }) => {
           <Typography>
             { confirmMsg }
           </Typography>
-          <Button color="error" variant="contained" onClick={handleSubmit}>Delete</Button>
+          <Button variant="contained" onClick={handleSubmit}>Delete</Button>
         </div>
       </Modal>
     </div>

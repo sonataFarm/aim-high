@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :visions, only: [ :index, :create, :show, :update, :destroy ]
     resources :goals,   only: [ :index, :create, :show, :update, :destroy ]
     resources :reviews, only: [ :create, :update, :destroy ]
+    resources :obstacles, only: [ :create, :update, :destroy ]
   end
   get '*path', to: 'static_pages#root'
 end

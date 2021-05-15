@@ -2,20 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
-import { CircularProgress, IconButton, Typography } from '@material-ui/core';
+import { Button, CircularProgress, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import { updateGoal } from '../actions/goal-actions';
-import { selectReviewsByGoal } from '../selectors/selectors';
+import { selectReviewsByGoal, selectObstaclesByGoal } from '../selectors/selectors';
 import Accordion from './Accordion';
 import EditableTextField from './EditableTextField';
 import CardGrid from './CardGrid';
 import ReviewCard from './ReviewCard';
 import CreateReviewForm from './CreateReviewForm';
-import { Delete, HighlightOff, RemoveCircle } from '@material-ui/icons';
+import { RemoveCircle } from '@material-ui/icons';
 import DeleteButton from './DeleteButton';
 import { deleteGoal } from '../actions/goal-actions';
+import ObstacleCard from './ObstacleCard';
+import CreateObstacleForm from './CreateObstacleForm';
 
-const classes = {
+const classes = theme => ({
   container: {
     width: '100%',
     height: '100%'
@@ -43,12 +45,28 @@ const classes = {
     '& > div': {
       width: '80%'
     }
+  },
+  obstaclesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& > *': {
+      margin: '10px'
+    },
+    width: '100%',
+    background: theme.palette.grey[100],
+    borderRadius: 10,
+    '& .MuiFormControl-root': {
+      background: 'white'
+    }
   }
-};
+});
 
 class GoalDetail extends React.Component {
   get loading() {
-    return !this.props.goal || !this.props.vision || !this.props.reviews;
+    return (
+      !this.props.goal || !this.props.vision  || 
+      !this.props.reviews || !this.props.obstacles
+    )
   }
 
   handleUpdate = key => val => {
@@ -63,18 +81,14 @@ class GoalDetail extends React.Component {
   }
 
   render() {
-    const { goal, vision, reviews, needsReview } = this.props;
-
+    const { goal, vision, obstacles, reviews, needsReview } = this.props;
     
     if (this.loading) {
-      return (
-        <div>
-          <CircularProgress />
-        </div>
-      );
+      return <div><CircularProgress /></div>;
     }
 
-    const cards = reviews.map(r => <ReviewCard review={r} />);
+    const reviewCards = reviews.map(r => <ReviewCard review={r} />);
+    const obstacleCards = obstacles.map(o => <ObstacleCard obstacle={o} />);
     
     return (
       <div className={this.props.classes.container}>
@@ -90,9 +104,9 @@ class GoalDetail extends React.Component {
           <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>
           <Typography variant="subtitle2" align="center">
             (From Vision: <Link to={`/visions/${vision.id}`}>{vision.title}</Link>)
-            </Typography>
-        </div>
+          </Typography>
         { needsReview ? <CreateReviewForm goal={goal} /> : null }
+        </div>
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">
             <EditableTextField
@@ -116,7 +130,13 @@ class GoalDetail extends React.Component {
           </Accordion>
 
           <Accordion title="Obstacles">
-            <Typography variant="body2">{'TODO'}</Typography>
+            <div className={this.props.classes.obstaclesContainer}>
+              <CardGrid 
+                cards={obstacleCards} 
+                breakpoints={{ xs: 12, sm: 12, md: 6 }}
+              />
+              <CreateObstacleForm />
+            </div>
           </Accordion>
 
           <Accordion title="Monitoring">
@@ -137,7 +157,7 @@ class GoalDetail extends React.Component {
             { ' ' + moment(goal.nextReviewDate).format('dddd, MMMM Do') }
          </Typography>
           <div className={this.props.classes.cardGridContainer}>
-            <CardGrid cards={cards} />
+            <CardGrid cards={reviewCards} />
           </div>
         </div>
       </div>
@@ -147,12 +167,13 @@ class GoalDetail extends React.Component {
 
 const mapStateToProps = (state, ownProps) => { 
   const goal = state.entities.goals[ownProps.match.params.id];
-  let vision, reviews, needsReview;
+  let vision, reviews, obstacles, needsReview;
 
   if (goal) {
     vision = state.entities.visions[goal.visionId];
     reviews = selectReviewsByGoal(goal.id, state);
     reviews.sort((a, b) => moment(b.created_at).isAfter(a.created_at) ? 1 : -1);
+    obstacles = selectObstaclesByGoal(goal.id, state);
   
     const 
       now = moment(),
@@ -161,7 +182,7 @@ const mapStateToProps = (state, ownProps) => {
     needsReview = now > nextReviewDate;
   }
 
-  return { goal, vision, reviews, needsReview };
+  return { goal, vision, reviews, obstacles, needsReview };
 };
 
 export default withRouter(connect(mapStateToProps, null)(withStyles(classes)(GoalDetail)));

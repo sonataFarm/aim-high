@@ -9,7 +9,7 @@ const styles = theme => ({
     }
   },
   resize: {
-    fontSize: theme.typography.body2.fontSize
+    fontSize: theme.typography.body2.fontSize,
   }
 });
 
@@ -77,7 +77,6 @@ class EditableTextField extends React.Component {
           }}
           ref={this.setWrapperRef}
           type="text"
-          variant="outlined"
           fullWidth
           label={label}
           required

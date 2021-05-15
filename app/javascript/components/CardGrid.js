@@ -8,14 +8,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const CardGrid = ({ cards }) => {
+const CardGrid = ({ cards, breakpoints }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.cardGridContainer}>
       <Grid container spacing={3}>
         {cards.map((card, idx) => (
-          <Grid key={idx} item xs={12} sm={6} md={4}>
+          <Grid key={idx} item xs={12} sm={6} md={4} {...breakpoints}>
             {card}
           </Grid>
         ))}

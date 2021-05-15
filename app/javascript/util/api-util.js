@@ -55,6 +55,18 @@ const deleteVision = id => (
   instance.delete(`visions/${id}`)
 );
 
+const createObstacle = obstacle => (
+  instance.post('obstacles', { obstacle})
+);
+
+const updateObstacle = obstacle => (
+  instance.patch(`obstacles/${obstacle.id}`, { obstacle })
+);
+
+const deleteObstacle = id => (
+  instance.delete(`obstacles/${id}`)
+);
+
 const createReview = review => (
   instance.post('reviews', { review })
 );
@@ -80,6 +92,9 @@ export default {
   deleteVision,
   updateVision,
   fetchAllVisions,
+  createObstacle,
+  updateObstacle,
+  deleteObstacle,
   createReview,
   deleteReview,
   updateReview
