@@ -18,20 +18,20 @@ class EditableTextField extends React.Component {
     super(props);
 
     this.state = { 
-      value: props.children,
+      value: props.children || '',
       editable: false
     };
   }
+
+  componentDidMount = () => {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  };
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.children !== this.props.children) {
       this.setState({ value: this.props.children });
     }
   }
-
-  componentDidMount = () => {
-    document.addEventListener('mousedown', this.handleClickOutside);
-  };
 
   componentWillUnmount = () => {
     document.removeEventListener('mousedown', this.handleClickOutside);
@@ -41,14 +41,31 @@ class EditableTextField extends React.Component {
     e.preventDefault();
     this.setState({ value: e.currentTarget.value });
   };
+
+  handleSubmit = () => {
+    if (!this.state.value.match(/\S/) && !this.props.acceptBlankValue) {
+      return;
+    }
+
+    this.wrapperRef = null;
+    this.props.handleUpdate(this.state.value);
+    this.toggleEditable();
+  }
   
   handleClickOutside = e => {
     if (this.wrapperRef && !this.wrapperRef.contains(e.target)) {
-      this.wrapperRef = null;
-      this.props.handleUpdate(this.state.value);
-      this.toggleEditable();
+      this.handleSubmit();
     }
   };
+
+  handleKeystroke = e => {
+    if (e.key === 'Enter') {
+      if (e.shiftKey || e.metaKey) {
+        return;
+      }
+      this.handleSubmit();
+    }
+  }
   
   toggleEditable = () => {
     this.setState({ editable: !this.state.editable });
@@ -58,16 +75,24 @@ class EditableTextField extends React.Component {
 
   render() {
     const { label, TypographyProps } = this.props;
+    let textAsHtml = this.state.value || '';
+
+    if (textAsHtml.includes("\n")) {
+      textAsHtml = textAsHtml.split("\n").map((p, i) => <p key={i}>{p}</p>);
+    }
+
     if (!this.state.editable) {
       return (
         <Typography 
           classes={{ root: this.props.classes.body }}
           display="inline"
-          component="span"
+          component="p"
           variant="body2"
           onClick={this.toggleEditable}
           { ...TypographyProps }
-        >{this.state.value}</Typography>
+        >
+          {textAsHtml}
+        </Typography>
       );
     } else {
       return (
@@ -82,7 +107,8 @@ class EditableTextField extends React.Component {
           required
           value={this.state.value}
           onChange={this.handleChange}
-          multiline rows={3} 
+          multiline
+          onKeyDown={e => this.handleKeystroke(e)} 
         />
       );
     }

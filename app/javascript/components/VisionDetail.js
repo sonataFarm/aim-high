@@ -100,9 +100,13 @@ class VisionDetail extends React.Component {
                 icon={<RemoveCircle color="disabled" />}
               />
             </div>
-            <Typography variant="h3" align="center" color="primary">
+            <EditableTextField
+              handleUpdate={this.handleUpdate('title')}
+              label="Title"
+              TypographyProps={{ variant: 'h3', align: 'center', color: 'primary', display: 'block' }}
+            >
               {vision.title}
-            </Typography>
+            </EditableTextField>
           </div>
           <div className={this.props.classes.description}>
             <EditableTextField

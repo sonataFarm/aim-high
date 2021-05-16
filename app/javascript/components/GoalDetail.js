@@ -30,7 +30,7 @@ const classes = theme => ({
     }
   },
   header: {
-    marginTop: '30px'
+    marginTop: theme.spacing(2)
   },
   headerTop: {
     display: 'flex',
@@ -137,9 +137,13 @@ class GoalDetail extends React.Component {
                 icon={<RemoveCircle color="disabled" />}
               />
             </div>
-            <Typography variant="h3" align="center" color="primary">
+            <EditableTextField
+              handleUpdate={this.handleUpdate('title')}
+              label="Title"
+              TypographyProps={{ variant: 'h3', align: 'center', color: 'primary', display: 'block' }}
+            >
               {goal.title}
-            </Typography>
+            </EditableTextField>
             <div className={classes.deadline}>
               <EditableDate 
                 date={goal.deadline} 
