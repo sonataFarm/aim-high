@@ -27,7 +27,8 @@ require 'faker'
         strategy: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
         deadline: Faker::Date.between(from: '2021-04-04', to: '2021-12-31'),
         evidence: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
-        satisfaction: Faker::Lorem.paragraph_by_chars(number: rand(180...300))
+        satisfaction: Faker::Lorem.paragraph_by_chars(number: rand(180...300)),
+        monitoring: Faker::Lorem.paragraph_by_chars(number: rand(180...300))
       )
 
       rand(0..5).times do

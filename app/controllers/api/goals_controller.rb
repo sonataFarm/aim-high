@@ -36,8 +36,9 @@ class Api::GoalsController < ApplicationController
 
   def goal_params
     params.require(:goal).permit(
-      :title, :description, :motivation, :impact, :strategy, :deadline,
-      :evidence, :satisfaction, :vision_id, obstacles_attributes: [ :description, :solution ]
+      :title, :description, :motivation, :impact, :strategy, :deadline, 
+      :monitoring, :evidence, :satisfaction, :vision_id, 
+      obstacles_attributes: [ :description, :solution ]
     )
   end
 

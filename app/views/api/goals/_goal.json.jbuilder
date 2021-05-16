@@ -5,6 +5,7 @@ json.motivation goal.motivation
 json.impact goal.impact
 json.strategy goal.strategy
 json.deadline goal.deadline
+json.monitoring goal.monitoring
 json.evidence goal.evidence
 json.satisfaction goal.satisfaction
 json.visionId goal.vision.id
