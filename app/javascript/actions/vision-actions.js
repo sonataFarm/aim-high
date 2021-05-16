@@ -7,12 +7,14 @@ export const RECEIVE_VISIONS = 'RECEIVE_VISIONS';
 export const REMOVE_VISION = 'REMOVE_VISION';
 export const BEGIN_LOADING_VISIONS = 'BEGIN_LOADING_VISIONS';
 
-export const fetchAllVisions = () => dispatch => (
-  api.fetchAllVisions().then(
+export const fetchAllVisions = () => dispatch => {
+  dispatch(beginLoadingVisions());
+  
+  return api.fetchAllVisions().then(
     res => dispatch(receiveVisions(res.data)),
     err => dispatch(receiveErrors(err.response.data))
   )
-);
+};
 
 export const createVision = vision => dispatch => (
   api.createVision(vision).then(

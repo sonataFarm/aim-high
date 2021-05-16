@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Add, RemoveCircle } from '@material-ui/icons';
@@ -33,7 +33,7 @@ class CreateGoalForm extends React.Component {
     super(props);
 
     this.state = {
-      visionId: this.props.visions[0] ? this.props.visions[0].id : null,
+      visionId: this.props.visions.length ? this.props.visions[0].id : null,
       title: '',
       description: '',
       motivation: '',
@@ -55,7 +55,7 @@ class CreateGoalForm extends React.Component {
 
   handleInputChange = (event, field) => {
     event.preventDefault && event.preventDefault();
-    debugger;
+
     let value;
     if (field === 'visionId') {
       value = event.target.value;
@@ -84,7 +84,7 @@ class CreateGoalForm extends React.Component {
     });
   };
 
-    handleObstacleChange = (event, field, idx) => {
+  handleObstacleChange = (event, field, idx) => {
     event.preventDefault();
     const obstacles = [ ...this.state.obstacles ];
 
@@ -96,13 +96,9 @@ class CreateGoalForm extends React.Component {
     this.setState({ obstacles });
   };
 
-  loading = () => {
-    return !this.state.visionId;
-  };
-
   render() {
-    if (this.loading()) {
-      return <CircularProgress />;
+    if (!this.props.userHasVisions) {
+      return <Redirect to="/visions/new" />
     }
 
     const stepDescriptions = [
@@ -311,7 +307,8 @@ class CreateGoalForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  visions: denormalizeEntities(state.entities.visions)
+  visions: denormalizeEntities(state.entities.visions),
+  userHasVisions: Object.keys(state.entities.visions).length
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

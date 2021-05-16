@@ -153,7 +153,7 @@ class GoalDetail extends React.Component {
                 <Typography 
                   variant="body1" 
                   display="inline"
-                  color={ deadlineExpired ? 'error' : 'black' }
+                  color={ deadlineExpired ? 'error' : 'textPrimary' }
                 > 
                   Deadline: {moment(goal.deadline).format('MMMM DD, YYYY')}
                 </Typography>

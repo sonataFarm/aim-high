@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
@@ -22,9 +23,9 @@ const CreateGoalButton = (props) => {
   return (
     <div>
       <IconButton
-            color="secondary"
-            onClick={handleMenuClick}
-          >
+        color="secondary"
+        onClick={handleMenuClick}
+      >
         <AddCircle />
       </IconButton>
       <Menu
@@ -37,11 +38,19 @@ const CreateGoalButton = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        { props.userHasVisions ? (
+          <MenuItem onClick={handleAddGoal}>Create Goal</MenuItem> 
+        ) : ( 
+          null 
+        )}
         <MenuItem onClick={handleAddVision}>Create Vision</MenuItem>
-        <MenuItem onClick={handleAddGoal}>Create Goal</MenuItem>
       </Menu>
     </div>
   );
 };
 
-export default withRouter(CreateGoalButton);
+const mapStateToProps = state => ({
+  userHasVisions: Object.keys(state.entities.visions).length
+});
+
+export default withRouter(connect(mapStateToProps)(CreateGoalButton));
