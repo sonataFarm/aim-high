@@ -1,8 +1,8 @@
 import React from 'react';
-import { IconButton, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { AccountCircle, AddCircle } from '@material-ui/icons';
 import CreateGoalButton from './CreateGoalButton';
+import AccountButton from './AccountButton';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,13 +39,7 @@ const Navbar = ({ username }) => {
       </div>
       <div className={classes.menu}>
         <CreateGoalButton />
-       
-        <IconButton
-          color="secondary"
-          onClick={() => console.log('click')}
-        >
-          <AccountCircle />
-        </IconButton>
+        <AccountButton />
       </div>
     </div>
   );
