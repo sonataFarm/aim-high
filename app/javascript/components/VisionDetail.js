@@ -12,14 +12,20 @@ import EditableTextField from './EditableTextField';
 import DeleteButton from './DeleteButton';
 import { RemoveCircle } from '@material-ui/icons';
 
-const classes = {
-  container: {
+const classes = theme => ({
+  mainContentContainer: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    '& > div': {
+      width: '80%'
+    }
   },
   header: {
-    marginTop: '30px',
-    marginBottom: '30px'
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   headerTop: {
     display: 'flex',
@@ -30,18 +36,23 @@ const classes = {
     '& > div': {
       position: 'absolute',
       top: 0,
-      right: 100
+      right: 0
     },
+  },
+  description: {
+    width: '60%',
+    textAlign: 'center',
+    marginBottom: theme.spacing(1)
   },
   accordionContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    '& > div': {
-      width: '80%'
-    }
+    // '& > div': {
+    //   width: '80%'
+    // }
   }
-};
+});
 
 class VisionDetail extends React.Component {
   get loading() {
@@ -78,33 +89,44 @@ class VisionDetail extends React.Component {
     const deleteConfirmMsg = "This action will delete this vision and all of its goals. Are you sure you want to continue?";
 
     return (
-      <div className={this.props.classes.container}>
-        <div className={this.props.classes.header}>
-          <div className={this.props.classes.headerTop}>
-            <Typography variant="subtitle1" align="center">Vision</Typography>
-            <DeleteButton
-              confirmMsg={deleteConfirmMsg}
-              handleDelete={this.handleDelete}
-              icon={<RemoveCircle color="disabled" />}
-            />
+      <div>
+        <div className={this.props.classes.mainContentContainer}>
+          <div className={this.props.classes.header}>
+            <div className={this.props.classes.headerTop}>
+              <Typography variant="subtitle1" align="center">Vision</Typography>
+              <DeleteButton
+                confirmMsg={deleteConfirmMsg}
+                handleDelete={this.handleDelete}
+                icon={<RemoveCircle color="disabled" />}
+              />
+            </div>
+            <Typography variant="h3" align="center" color="primary">
+              {vision.title}
+            </Typography>
           </div>
-          <Typography variant="h3" align="center" color="primary">
-            {vision.title}
-          </Typography>
-        </div>
-        <div className={this.props.classes.accordionContainer}>
-          <Accordion title="Motivation">
+          <div className={this.props.classes.description}>
             <EditableTextField
-              label="Motivation"
-              handleUpdate={this.handleUpdate('motivation')}
-            >{vision.motivation}</EditableTextField>
-          </Accordion>
-          <Accordion title="Impact">
-            <EditableTextField
-              label="Impact"
-              handleUpdate={this.handleUpdate('impact')}
-            >{vision.impact}</EditableTextField>
-          </Accordion>
+              label="Description"
+              handleUpdate={this.handleUpdate('description')}
+            >
+              {vision.description}
+            </EditableTextField>
+          </div>
+
+          <div className={this.props.classes.accordionContainer}>
+            <Accordion title="Motivation">
+              <EditableTextField
+                label="Motivation"
+                handleUpdate={this.handleUpdate('motivation')}
+              >{vision.motivation}</EditableTextField>
+            </Accordion>
+            <Accordion title="Impact">
+              <EditableTextField
+                label="Impact"
+                handleUpdate={this.handleUpdate('impact')}
+              >{vision.impact}</EditableTextField>
+            </Accordion>
+          </div>
         </div>
         <div>
           <Typography 
