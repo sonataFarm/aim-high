@@ -17,7 +17,7 @@ const styles = {
   },
   header: {
     marginTop: '30px',
-    marginBottom: '30px'
+    marginBottom: '0'
   },
   root: {
     width: '95%',
@@ -40,6 +40,7 @@ class CreateGoalForm extends React.Component {
       impact: '',
       strategy: '',
       deadline: moment().add(1, 'M'),
+      monitoring: '',
       evidence: '',
       satisfaction: '',
       obstacles: [ { description: '', solution: '' } ]
@@ -261,6 +262,17 @@ class CreateGoalForm extends React.Component {
             required
             value={this.state.evidence}
             onChange={e => this.handleInputChange(e, "evidence")}
+            multiline rows={3} 
+          />
+          <Typography variant="subtitle1">When and how will you monitor your progress?</Typography>
+          <TextField 
+            type="text"
+            variant="outlined"
+            fullWidth
+            label="Monitoring"
+            required
+            value={this.state.monitoring}
+            onChange={e => this.handleInputChange(e, "monitoring")}
             multiline rows={3} 
           />
           <Typography variant="subtitle1">How will things in your life have to change, measurably, for you to feel satisfied in your progress?</Typography>
