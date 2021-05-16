@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { denormalizeEntities } from '../util/normalize';
 import { updateVision, deleteVision } from '../actions/vision-actions';
@@ -21,6 +21,10 @@ const classes = theme => ({
     alignItems: 'center',
     '& > div': {
       width: '80%'
+    },
+    '& hr': {
+      width: '100%',
+      margin: theme.spacing(2)
     }
   },
   header: {
@@ -93,7 +97,6 @@ class VisionDetail extends React.Component {
         <div className={this.props.classes.mainContentContainer}>
           <div className={this.props.classes.header}>
             <div className={this.props.classes.headerTop}>
-              <Typography variant="subtitle1" align="center">Vision</Typography>
               <DeleteButton
                 confirmMsg={deleteConfirmMsg}
                 handleDelete={this.handleDelete}
@@ -109,12 +112,14 @@ class VisionDetail extends React.Component {
             </EditableTextField>
           </div>
           <div className={this.props.classes.description}>
+            <Divider />
             <EditableTextField
               label="Description"
               handleUpdate={this.handleUpdate('description')}
             >
               {vision.description}
             </EditableTextField>
+            <Divider />
           </div>
 
           <div className={this.props.classes.accordionContainer}>
@@ -130,11 +135,11 @@ class VisionDetail extends React.Component {
                 handleUpdate={this.handleUpdate('impact')}
               >{vision.impact}</EditableTextField>
             </Accordion>
+            <Divider />
           </div>
         </div>
         <div>
           <Typography 
-            style={{ paddingTop: '10px'}} 
             variant="subtitle2" 
             align="center"
             gutterBottom

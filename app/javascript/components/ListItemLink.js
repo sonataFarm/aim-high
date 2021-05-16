@@ -2,7 +2,6 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
-
 const ListItemLink = (props) => {
   const { icon, primary, to, className } = props;
 

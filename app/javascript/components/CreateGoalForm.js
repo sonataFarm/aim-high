@@ -180,9 +180,9 @@ class CreateGoalForm extends React.Component {
           <KeyboardDatePicker
             margin="normal"
             label="Deadline"
-            format="YYYY-MM-DD"
+            format="MM/DD/YYYY"
             value={this.state.deadline}
-            inputValue={this.state.deadline.format("YYYY-MM-DD")}
+            inputValue={this.state.deadline.format("MM/DD/YYYY")}
             onChange={e => this.handleInputChange(e, "deadline")}
           />
           <Typography variant="subtitle1">What is your detailed strategy for achieving this goal?</Typography>
@@ -194,7 +194,7 @@ class CreateGoalForm extends React.Component {
             required
             value={this.state.strategy}
             onChange={e => this.handleInputChange(e, "strategy")}
-            multiline rows={3} 
+            multiline rows={5} 
           />
         </StepperFormContent>
       ),

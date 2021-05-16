@@ -11,7 +11,7 @@ import EditableTextField from './EditableTextField';
 import CardGrid from './CardGrid';
 import ReviewCard from './ReviewCard';
 import CreateReviewForm from './CreateReviewForm';
-import { RemoveCircle } from '@material-ui/icons';
+import { RemoveCircle, Visibility } from '@material-ui/icons';
 import DeleteButton from './DeleteButton';
 import { deleteGoal } from '../actions/goal-actions';
 import ObstacleCard from './ObstacleCard';
@@ -27,6 +27,10 @@ const classes = theme => ({
     height: '100%',
     '& > div': {
       width: '80%'
+    },
+    '& hr': {
+      width: '100%',
+      margin: theme.spacing(2)
     }
   },
   header: {
@@ -159,6 +163,7 @@ class GoalDetail extends React.Component {
                 </Typography>
               </EditableDate>
             </div>
+            <Divider />
             <EditableTextField
               handleUpdate={this.handleUpdate('description')}
               label="Description"
@@ -166,6 +171,7 @@ class GoalDetail extends React.Component {
             >
               {goal.description}
             </EditableTextField>
+            <Divider />
           </div>
           <div className={classes.accordionContainer}>
             <Accordion title="Motivation">
@@ -235,11 +241,11 @@ class GoalDetail extends React.Component {
                 </div>
               </div>
             </Accordion>
+            <Divider />
           </div>
         </div>
         <div>
-          <Typography 
-            style={{ paddingTop: '10px'}} 
+          <Typography  
             variant="body2" 
             color="textSecondary"
             align="center"

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline, List, Divider, CircularProgress } from '@material-ui/core';
-import { AssignmentTurnedIn, StarHalf } from '@material-ui/icons';
+import { AssignmentTurnedIn, StarHalf, Visibility } from '@material-ui/icons';
 import { denormalizeEntities } from '../util/normalize';
 import ListItemLink from './ListItemLink';
 import { withRouter } from 'react-router';
@@ -54,6 +54,9 @@ const styles = (theme) => ({
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       color: 'white'
+    },
+    '& .MuiListItemIcon-root': {
+      minWidth: 35
     }
   },
   selectedGoal: {
@@ -63,6 +66,9 @@ const styles = (theme) => ({
     background: theme.palette.secondary.main,
     '& span': {
       color: 'black'
+    },
+    '& svg': {
+      color: theme.palette.primary.dark
     }
   }
 });
@@ -89,6 +95,7 @@ class Sidebar extends React.Component {
           return (
             <div key={v.id}>
               <ListItemLink 
+                icon={<Visibility color="secondary" fontSize="small" />}
                 to={`/visions/${v.id}`} 
                 primary={v.title} 
                 className={className}
