@@ -19,7 +19,7 @@ import CreateObstacleForm from './CreateObstacleForm';
 import EditableDate from './EditableDate';
 
 const classes = theme => ({
-  container: {
+  mainContentContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -125,7 +125,7 @@ class GoalDetail extends React.Component {
   
     return (
       <div>
-        <div className={classes.container}>
+        <div className={classes.mainContentContainer}>
           <div className={classes.header}>
             <div className={classes.headerTop}>
               <Typography variant="h6" align="center">
@@ -147,7 +147,7 @@ class GoalDetail extends React.Component {
                 date={goal.deadline}
               >
                 <Typography 
-                  variant="body2" 
+                  variant="body1" 
                   display="inline"
                   color={ deadlineExpired ? 'error' : 'black' }
                 > 
@@ -158,7 +158,7 @@ class GoalDetail extends React.Component {
             <EditableTextField
               handleUpdate={this.handleUpdate('description')}
               label="Description"
-              TypographyProps={{ variant: 'body1' }}
+              TypographyProps={{ variant: 'body2' }}
             >
               {goal.description}
             </EditableTextField>
