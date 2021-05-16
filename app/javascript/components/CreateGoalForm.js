@@ -55,7 +55,7 @@ class CreateGoalForm extends React.Component {
 
   handleInputChange = (event, field) => {
     event.preventDefault && event.preventDefault();
-    
+    debugger;
     let value;
     if (field === 'visionId') {
       value = event.target.value;

@@ -16,6 +16,7 @@ import DeleteButton from './DeleteButton';
 import { deleteGoal } from '../actions/goal-actions';
 import ObstacleCard from './ObstacleCard';
 import CreateObstacleForm from './CreateObstacleForm';
+import EditableDate from './EditableDate';
 
 const classes = theme => ({
   container: {
@@ -42,6 +43,13 @@ const classes = theme => ({
       top: 0,
       right: 0
     },
+    '& a': {
+      textDecoration: 'none',
+      color: theme.palette.primary.light,
+      '&:hover': {
+        color: theme.palette.primary.dark
+      }
+    }
   },
   accordionContainer: {
     display: 'flex',
@@ -76,6 +84,10 @@ const classes = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
+  },
+  deadline: {
+    textAlign: 'center',
+    margin: theme.spacing(1)
   }
 });
 
@@ -108,7 +120,9 @@ class GoalDetail extends React.Component {
 
     const reviewCards = reviews.map(r => <ReviewCard review={r} />);
     const obstacleCards = obstacles.map(o => <ObstacleCard obstacle={o} />);
-    
+
+    const deadlineExpired = moment(goal.deadline) < moment();
+  
     return (
       <div>
         <div className={classes.container}>
@@ -123,9 +137,24 @@ class GoalDetail extends React.Component {
                 icon={<RemoveCircle color="disabled" />}
               />
             </div>
-            <Typography variant="h3" align="center" gutterBottom>
+            <Typography variant="h3" align="center" color="primary">
               {goal.title}
             </Typography>
+            <div className={classes.deadline}>
+              <EditableDate 
+                date={goal.deadline} 
+                handleUpdate={this.handleUpdate('deadline')} 
+                date={goal.deadline}
+              >
+                <Typography 
+                  variant="body2" 
+                  display="inline"
+                  color={ deadlineExpired ? 'error' : 'black' }
+                > 
+                  Deadline: {moment(goal.deadline).format('MMMM DD, YYYY')}
+                </Typography>
+              </EditableDate>
+            </div>
             <EditableTextField
               handleUpdate={this.handleUpdate('description')}
               label="Description"

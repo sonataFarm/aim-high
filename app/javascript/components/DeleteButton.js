@@ -5,10 +5,8 @@ import Modal from './Modal';
 
 const useStyles = makeStyles(theme => ({
   btnIcon: {
-    '& svg': {
-      '&:hover': {
-        color: theme.palette.error.main
-      }
+    '& svg:hover': {
+      color: theme.palette.error.light
     }
   },
   modalContent: {
