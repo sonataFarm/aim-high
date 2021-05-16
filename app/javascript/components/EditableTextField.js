@@ -57,7 +57,7 @@ class EditableTextField extends React.Component {
   setWrapperRef = node => { this.wrapperRef = node; };
 
   render() {
-    const { label } = this.props;
+    const { label, TypographyProps } = this.props;
     if (!this.state.editable) {
       return (
         <Typography 
@@ -66,7 +66,7 @@ class EditableTextField extends React.Component {
           component="span"
           variant="body2"
           onClick={this.toggleEditable}
-
+          { ...TypographyProps }
         >{this.state.value}</Typography>
       );
     } else {

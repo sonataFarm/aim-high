@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
-import { Button, CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 import { updateGoal } from '../actions/goal-actions';
 import { selectReviewsByGoal, selectObstaclesByGoal } from '../selectors/selectors';
@@ -19,12 +19,17 @@ import CreateObstacleForm from './CreateObstacleForm';
 
 const classes = theme => ({
   container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    '& > div': {
+      width: '80%'
+    }
   },
   header: {
-    marginTop: '30px',
-    marginBottom: '30px'
+    marginTop: '30px'
   },
   headerTop: {
     display: 'flex',
@@ -35,16 +40,14 @@ const classes = theme => ({
     '& > div': {
       position: 'absolute',
       top: 0,
-      right: 100
+      right: 0
     },
   },
   accordionContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    '& > div': {
-      width: '80%'
-    }
+    marginTop: theme.spacing(2)
   },
   obstaclesContainer: {
     display: 'flex',
@@ -58,6 +61,21 @@ const classes = theme => ({
     '& .MuiFormControl-root': {
       background: 'white'
     }
+  },
+  monitoringSection: {
+    display: 'block',
+    width: '100%',
+    '& hr': {
+      margin: theme.spacing(2)
+    },
+    '& .section-title': {
+      fontWeight: 600
+    }
+  },
+  monitoringContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 });
 
@@ -82,6 +100,7 @@ class GoalDetail extends React.Component {
 
   render() {
     const { goal, vision, obstacles, reviews, needsReview } = this.props;
+    const { classes } = this.props;
     
     if (this.loading) {
       return <div><CircularProgress /></div>;
@@ -91,60 +110,99 @@ class GoalDetail extends React.Component {
     const obstacleCards = obstacles.map(o => <ObstacleCard obstacle={o} />);
     
     return (
-      <div className={this.props.classes.container}>
-        <div className={this.props.classes.header}>
-          <div className={this.props.classes.headerTop}>
-            <Typography variant="subtitle1">Goal</Typography>
-            <DeleteButton 
-              confirmMsg="Are you sure you want to delete this goal?" 
-              handleDelete={this.handleDelete}
-              icon={<RemoveCircle color="disabled" />}
-            />
-          </div>
-          <Typography variant="h3" align="center" gutterBottom>{goal.title}</Typography>
-          <Typography variant="subtitle2" align="center">
-            (From Vision: <Link to={`/visions/${vision.id}`}>{vision.title}</Link>)
-          </Typography>
-        { needsReview ? <CreateReviewForm goal={goal} /> : null }
-        </div>
-        <div className={this.props.classes.accordionContainer}>
-          <Accordion title="Motivation">
-            <EditableTextField
-              handleUpdate={this.handleUpdate('motivation')}
-              label="Motivation"
-            >{goal.motivation}</EditableTextField>
-          </Accordion>
-          
-          <Accordion title="Impact">
-             <EditableTextField
-              label="Impact"
-              handleUpdate={this.handleUpdate('impact')}
-            >{goal.impact}</EditableTextField>
-          </Accordion>
-
-          <Accordion title="Strategy">
-             <EditableTextField
-              label="Strategy"
-              handleUpdate={this.handleUpdate('strategy')}
-            >{goal.strategy}</EditableTextField>
-          </Accordion>
-
-          <Accordion title="Obstacles">
-            <div className={this.props.classes.obstaclesContainer}>
-              <CardGrid 
-                cards={obstacleCards} 
-                breakpoints={{ xs: 12, sm: 12, md: 6 }}
+      <div>
+        <div className={classes.container}>
+          <div className={classes.header}>
+            <div className={classes.headerTop}>
+              <Typography variant="h6" align="center">
+                <Link to={`/visions/${vision.id}`}>{vision.title}</Link>
+              </Typography>
+              <DeleteButton 
+                confirmMsg="Are you sure you want to delete this goal?" 
+                handleDelete={this.handleDelete}
+                icon={<RemoveCircle color="disabled" />}
               />
-              <CreateObstacleForm />
             </div>
-          </Accordion>
+            <Typography variant="h3" align="center" gutterBottom>
+              {goal.title}
+            </Typography>
+            <EditableTextField
+              handleUpdate={this.handleUpdate('description')}
+              label="Description"
+              TypographyProps={{ variant: 'body1' }}
+            >
+              {goal.description}
+            </EditableTextField>
+          </div>
+          <div className={classes.accordionContainer}>
+            <Accordion title="Motivation">
+              <EditableTextField
+                handleUpdate={this.handleUpdate('motivation')}
+                label="Motivation"
+              >{goal.motivation}</EditableTextField>
+            </Accordion>
+            
+            <Accordion title="Impact">
+              <EditableTextField
+                label="Impact"
+                handleUpdate={this.handleUpdate('impact')}
+              >{goal.impact}</EditableTextField>
+            </Accordion>
 
-          <Accordion title="Monitoring">
-             <EditableTextField
-              label="Monitoring"
-              handleUpdate={this.handleUpdate('monitoring')}
-            >{goal.evidence}</EditableTextField>
-          </Accordion>
+            <Accordion title="Strategy">
+              <EditableTextField
+                label="Strategy"
+                handleUpdate={this.handleUpdate('strategy')}
+              >{goal.strategy}</EditableTextField>
+            </Accordion>
+
+            <Accordion title="Obstacles">
+              <div className={classes.obstaclesContainer}>
+                <CardGrid 
+                  cards={obstacleCards} 
+                  breakpoints={{ xs: 12, sm: 12, md: 6 }}
+                />
+                <CreateObstacleForm />
+              </div>
+            </Accordion>
+            <Accordion title="Monitoring">
+              <div className={classes.monitoringContainer}>
+                <div className={classes.monitoringSection}>
+                  <EditableTextField
+                    label="Monitoring"
+                    handleUpdate={this.handleUpdate('monitoring')}
+                  >
+                    {goal.monitoring}
+                  </EditableTextField>
+                  <Divider />
+                </div>
+                <div className={classes.monitoringSection}>
+                  <Typography variant="overline" display="block">
+                    What will you accept as evidence that you are progressing towards your goal?
+                  </Typography>
+                  <EditableTextField
+                    label="Evidence"
+                    handleUpdate={this.handleUpdate('evidence')}
+                  >
+                    {goal.evidence}
+                  </EditableTextField>
+                  <Divider />
+                </div>
+                <div className={classes.monitoringSection}>
+                  <Typography variant="overline" display="block">
+                    How will things in your life have to change for you to feel satisfied in your progress?
+                  </Typography>
+                  <EditableTextField
+                    label="Satisfaction"
+                    handleUpdate={this.handleUpdate('satisfaction')}
+                  >
+                    {goal.satisfaction}
+                  </EditableTextField>
+                  <Divider />
+                </div>
+              </div>
+            </Accordion>
+          </div>
         </div>
         <div>
           <Typography 
@@ -155,8 +213,9 @@ class GoalDetail extends React.Component {
             gutterBottom
           >Next review due
             { ' ' + moment(goal.nextReviewDate).format('dddd, MMMM Do') }
-         </Typography>
-          <div className={this.props.classes.cardGridContainer}>
+        </Typography>
+        { needsReview ? <CreateReviewForm goal={goal} /> : null }
+          <div className={classes.cardGridContainer}>
             <CardGrid cards={reviewCards} />
           </div>
         </div>
