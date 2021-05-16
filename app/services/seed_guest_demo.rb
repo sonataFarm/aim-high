@@ -21,6 +21,7 @@ class SeedGuestDemo
       vision: v,
       deadline: Date.today + 60.days,
       title: "Lose 10 Pounds",
+      description: 'I want to lose lose ten pounds.',
       motivation: "Summer is coming up, and I want to look great at the beach.",
       impact: "I'll feel confident taking my shirt off at the beach.",
       strategy: "I will eat at a daily caloric deficit of 400 calories. Every day, I will log my calories in the LoseIt app. On Mondays, Tuesdays, Thursdays and Fridays, I will go to the gym at noon.",
