@@ -44,7 +44,7 @@ const CreateObstacleForm = (props) => {
       {!open ? (
         <IconButton
           color="primary"
-          size="large"
+          size="medium"
           onClick={() => setOpen(true)}
         >
         <AddCircle />
