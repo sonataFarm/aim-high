@@ -88,7 +88,9 @@ class VisionDetail extends React.Component {
               icon={<RemoveCircle color="disabled" />}
             />
           </div>
-          <Typography variant="h3" align="center">{vision.title}</Typography>
+          <Typography variant="h3" align="center" color="primary">
+            {vision.title}
+          </Typography>
         </div>
         <div className={this.props.classes.accordionContainer}>
           <Accordion title="Motivation">

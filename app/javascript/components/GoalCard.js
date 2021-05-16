@@ -45,7 +45,7 @@ const GoalCard = ({ goal, history }) => {
         <Typography className={classes.title} color="textSecondary" gutterBottom>
           Goal
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography variant="h5" component="h2" gutterBottom color="primary">
           {goal.title}
         </Typography>
           <div className={classes.description}>
