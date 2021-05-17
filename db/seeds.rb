@@ -1,7 +1,5 @@
-require 'faker'
-
-case Rails.env
-when "development"
+if Rails.env == "development"
+  require 'faker'
   10.times do
     u = User.create(
       username: Faker::Internet.username,

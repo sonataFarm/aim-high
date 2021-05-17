@@ -10,14 +10,9 @@ const useStyles = makeStyles({
   container: {
     height: '100vh',
     width: '100vw',
-    background: 'url(assets/stars.jpg) no-repeat center center fixed',
-    'webkit-background-size': 'cover',
-    'moz-background-size': 'cover',
-    '-o-background-size': 'cover',
-    'background-size': 'cover',
-     position: 'fixed',
-     top: 0,
-     left: 0
+    position: 'fixed',
+    top: 0,
+    left: 0
   },
   white: {
     color: 'white'
@@ -40,7 +35,7 @@ const LandingPage = () => {
   const [ guestDemoModalOpen, setGuestDemoModalOpen ] = useState(false);
 
   return (
-    <div className={classes.container}>
+    <div id="landing-page-container" className={classes.container}>
       <Grid container style={{ height: '100%' }}>
         <Grid item xs={false} md={2} />
         <Grid 
