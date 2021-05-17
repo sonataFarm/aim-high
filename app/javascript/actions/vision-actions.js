@@ -9,7 +9,6 @@ export const BEGIN_LOADING_VISIONS = 'BEGIN_LOADING_VISIONS';
 
 export const fetchAllVisions = () => dispatch => {
   dispatch(beginLoadingVisions());
-  
   return api.fetchAllVisions().then(
     res => dispatch(receiveVisions(res.data)),
     err => dispatch(receiveErrors(err.response.data))

@@ -8,7 +8,7 @@ import CreateVisionForm from './CreateVisionForm';
 import GoalsIndex from './GoalsIndex';
 import ToReviewIndex from './ToReviewIndex';
 
-const MainContent = ({ vision }) => (
+const MainContent = () => (
   <div>
     <Switch>
       <Route path="/goals/new">
@@ -28,6 +28,9 @@ const MainContent = ({ vision }) => (
       </Route>
        <Route exact path="/review">
         <ToReviewIndex />
+      </Route>
+      <Route>
+        <GoalsIndex />
       </Route>
     </Switch>
   </div>

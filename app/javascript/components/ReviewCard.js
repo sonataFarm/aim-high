@@ -24,12 +24,6 @@ const useStyles = makeStyles({
     alignItems: 'center'
   },
   description: {
-    display: '-webkit-box',
-    lineClamp: 4,
-    boxOrient: 'vertical',
-    height: '100px',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
     paddingTop: '6px',
   },
   title: {
