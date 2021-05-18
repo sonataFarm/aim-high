@@ -37,8 +37,8 @@ class SeedGuestDemo
               )
             ],
             evidence: "I will weigh in every day, and log my results. I'll accept as evidence the moving average of my weigh-ins.",
+            monitoring: "On Sundays at 11am, I will collate all my weigh-ins into a single spreadsheet and review the results.",
             satisfaction: "I will fit into my blue shirt. I will feel confident at the beach.",
-            monitoring: "On Sundays at 11am, I will collate all my weigh-ins into a single spreadsheet and review the results."
           )
 
                 r = Review.create(
