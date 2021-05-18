@@ -1,24 +1,25 @@
-# README
+# AimHigh
+Create a Vision for yourself. Who do you want to be? 
+Write detailed goals that will move you towards that vision. How will you get there?
+Review your goals and track your progress. How is it going?
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+AimHigh is a single-page app powered by a React-Redux frontend and served via a Ruby on Rails backend. AimHigh is goal-setting and monitoring app that uses [SMART goal principles](https://en.wikipedia.org/wiki/SMART_criteria) and personal vision statements to increase the power and effectiveness of goal-setting. 
 
-Things you may want to cover:
+[View Live Demo](https://aim-high.herokuapp.com/)
 
-* Ruby version
+## Technologies
+AimHigh is a Heroku deploy with a __Rails 6__ server and a __PostgreSQL__ database. Its frontend is powered by __React__ and uses the [Material UI component library](https://material-ui.com/), with __Redux__ managing application state.
 
-* System dependencies
+## Key Features
+* User authentication with ```bcrypt``` password encryption and session cookies
+* CRUD operations on Visions and Goals
+* Multi-step forms for Goal and Vision creation
+* Editable text fields
+* Dynamic reseeding for Guest Demo login
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Editable Text Fields
+![Editable Text Fields](https://github.com/sonataFarm/aim-high/blob/master/demo/editable-text-field.gif)
+### Multistep Forms
+![Multistep Forms](https://github.com/sonataFarm/aim-high/blob/master/demo/multistep-form.gif)
+### Login Validation
+![Login Validation](https://github.com/sonataFarm/aim-high/blob/master/demo/login-validation.gif)
