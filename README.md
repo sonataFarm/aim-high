@@ -18,8 +18,8 @@ AimHigh is a Heroku deploy with a __Rails 6__ server and a __PostgreSQL__ databa
 * Dynamic reseeding for Guest Demo login
 
 ### Editable Text Fields
-![Editable Text Fields](https://github.com/sonataFarm/aim-high/blob/master/demo/editable-text-field.gif)
+![Editable Text Fields](https://raw.githubusercontent.com/sonataFarm/aim-high/main/demo/editable-text-field.gif)
 ### Multistep Forms
-![Multistep Forms](https://github.com/sonataFarm/aim-high/blob/master/demo/multistep-form.gif)
+![Multistep Forms](https://raw.githubusercontent.com/sonataFarm/aim-high/main/demo/multistep-form.gif)
 ### Login Validation
-![Login Validation](https://github.com/sonataFarm/aim-high/blob/master/demo/login-validation.gif)
+![Login Validation](https://raw.githubusercontent.com/sonataFarm/aim-high/main/demo/login-vadliation.gif)
