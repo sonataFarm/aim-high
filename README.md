@@ -5,7 +5,7 @@ Write detailed goals that move you towards your Vision. *How will you get there?
 
 Review your goals and track your progress. *How is it going?*
 
-AimHigh is a single-page app powered by a React-Redux frontend and served via a Ruby on Rails backend. AimHigh is goal-setting and monitoring app that uses [SMART goal principles](https://en.wikipedia.org/wiki/SMART_criteria) and personal vision statements to increase the power and effectiveness of goal-setting. 
+AimHigh is a single-page app powered by a React-Redux frontend and served via a Ruby on Rails backend. A goal-setting and monitoring app that uses [SMART goal principles](https://en.wikipedia.org/wiki/SMART_criteria) and personal vision statements, AimHigh takes the power, efficiency and effectiveness of your goal-setting to the next level. 
 
 [View Live Demo](https://aim-high.herokuapp.com/)
 
