@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { IconButton, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
-import { logOut } from '../actions/session-actions';
-
-
+import { logOut } from '../../../actions/session-actions';
 
 const useStyles = makeStyles(theme => ({
   icon: {

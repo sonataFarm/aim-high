@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, Typography } from '@material-ui/core';
-import { denormalizeEntities } from '../util/normalize';
-import CardGrid from './CardGrid';
+import { denormalizeEntities } from '../../util/normalize';
+import CardGrid from '../shared/CardGrid';
 import GoalCard from './GoalCard';
 
 const useStyles = makeStyles(theme => ({

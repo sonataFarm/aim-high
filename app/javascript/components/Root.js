@@ -18,7 +18,7 @@ const Root = ({ store }) => {
         </ThemeProvider>
       </MuiPickersUtilsProvider>
     </Provider>
-  )
+  );
 };
 
 export default Root;

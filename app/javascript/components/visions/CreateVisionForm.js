@@ -5,10 +5,10 @@ import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, I
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Add, RemoveCircle } from '@material-ui/icons';
 import moment from 'moment';
-import { createVision } from '../actions/vision-actions';
-import { denormalizeEntities } from '../util/normalize';
-import StepperForm from './StepperForm';
-import StepperFormContent from './StepperFormContent';
+import { createVision } from '../../actions/vision-actions';
+import { denormalizeEntities } from '../../util/normalize';
+import StepperForm from '../shared/StepperForm';
+import StepperFormContent from '../shared/StepperFormContent';
 
 const styles = {
   container: {
@@ -28,7 +28,7 @@ const styles = {
   }
 };
 
-class CreateGoalForm extends React.Component {
+class CreateVisionForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -140,5 +140,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default withRouter(withStyles(styles)(
-    connect(null, mapDispatchToProps)(CreateGoalForm)
+    connect(null, mapDispatchToProps)(CreateVisionForm)
 ));

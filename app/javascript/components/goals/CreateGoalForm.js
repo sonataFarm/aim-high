@@ -5,10 +5,10 @@ import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, I
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Add, RemoveCircle } from '@material-ui/icons';
 import moment from 'moment';
-import { createGoal } from '../actions/goal-actions';
-import { denormalizeEntities } from '../util/normalize';
-import StepperForm from './StepperForm';
-import StepperFormContent from './StepperFormContent';
+import { createGoal } from '../../actions/goal-actions';
+import { denormalizeEntities } from '../../util/normalize';
+import StepperForm from '../shared/StepperForm';``
+import StepperFormContent from '../shared/StepperFormContent';
 
 const styles = {
   container: {

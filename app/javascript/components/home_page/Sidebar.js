@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { Drawer, CssBaseline, List, Divider, CircularProgress } from '@material-ui/core';
 import { AssignmentTurnedIn, StarHalf, Visibility } from '@material-ui/icons';
-import { denormalizeEntities } from '../util/normalize';
-import ListItemLink from './ListItemLink';
+import { denormalizeEntities } from '../../util/normalize';
+import ListItemLink from '../shared/ListItemLink';
 import { withRouter } from 'react-router';
 
 const drawerWidth = 280;

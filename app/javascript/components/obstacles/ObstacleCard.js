@@ -8,9 +8,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import EditableTextField from './EditableTextField';
-import { updateObstacle, deleteObstacle } from '../actions/obstacle-actions';
-import DeleteButton from './DeleteButton';
+import EditableTextField from '../shared/EditableTextField';
+import { updateObstacle, deleteObstacle } from '../../actions/obstacle-actions';
+import DeleteButton from '../shared/DeleteButton';
 import { Clear } from '@material-ui/icons';
 import { Divider } from '@material-ui/core';
 

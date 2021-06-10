@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Divider, TextField, Typography, withStyles } from '@material-ui/core';
+import { Button, TextField, Typography, withStyles } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import { logIn } from '../actions/session-actions';
+import { logIn } from '../../actions/session-actions';
 
 const styles = theme => ({
   formContainer: {

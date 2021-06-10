@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router';
-import GoalDetail from './GoalDetail';
-import VisionDetail from './VisionDetail';
-import CreateGoalForm from './CreateGoalForm';
-import CreateVisionForm from './CreateVisionForm';
-import GoalsIndex from './GoalsIndex';
-import ToReviewIndex from './ToReviewIndex';
+import GoalDetail from '../goals/GoalDetail';
+import VisionDetail from '../visions/VisionDetail';
+import CreateGoalForm from '../goals/CreateGoalForm';
+import CreateVisionForm from '../visions/CreateVisionForm';
+import GoalsIndex from '../goals/GoalsIndex';
+import ToReviewIndex from '../reviews/ToReviewIndex';
 
 const MainContent = () => (
   <div>

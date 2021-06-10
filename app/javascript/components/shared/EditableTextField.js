@@ -9,7 +9,7 @@ const styles = theme => ({
     }
   },
   resize: {
-    fontSize: theme.typography.body2.fontSize,
+    fontSize: theme.typography.body2.fontSize
   }
 });
 

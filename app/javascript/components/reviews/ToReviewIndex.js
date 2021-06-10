@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { makeStyles, Typography } from '@material-ui/core';
-import { selectGoalsToReview } from '../selectors/selectors';
-import CardGrid from './CardGrid';
-import GoalCard from './GoalCard';
+import { selectGoalsToReview } from '../../selectors/selectors';
+import CardGrid from '../shared/CardGrid';
+import GoalCard from '../goals/GoalCard';
 
 const useStyles = makeStyles(theme => ({
   container: {

@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Switch } from 'react-router-dom';
-
-import HomePage from './HomePage';
-import LandingPage from './LandingPage';
-import { AuthRoute, ProtectedRoute } from './Routes';
+import HomePage from './home_page/HomePage';
+import LandingPage from './landing_page/LandingPage';
+import { AuthRoute, ProtectedRoute } from './shared/Routes';
 
 const App = () => {
   return (

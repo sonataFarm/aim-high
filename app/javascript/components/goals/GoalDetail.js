@@ -4,19 +4,19 @@ import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import { updateGoal } from '../actions/goal-actions';
-import { selectReviewsByGoal, selectObstaclesByGoal } from '../selectors/selectors';
-import Accordion from './Accordion';
-import EditableTextField from './EditableTextField';
-import CardGrid from './CardGrid';
-import ReviewCard from './ReviewCard';
-import CreateReviewForm from './CreateReviewForm';
-import { RemoveCircle, Visibility } from '@material-ui/icons';
-import DeleteButton from './DeleteButton';
-import { deleteGoal } from '../actions/goal-actions';
-import ObstacleCard from './ObstacleCard';
-import CreateObstacleForm from './CreateObstacleForm';
-import EditableDate from './EditableDate';
+import { updateGoal } from '../../actions/goal-actions';
+import { selectReviewsByGoal, selectObstaclesByGoal } from '../../selectors/selectors';
+import Accordion from '../shared/Accordion';
+import EditableTextField from '../shared/EditableTextField';
+import CardGrid from '../shared/CardGrid';
+import ReviewCard from '../reviews/ReviewCard';
+import CreateReviewForm from '../reviews/CreateReviewForm';
+import { RemoveCircle } from '@material-ui/icons';
+import DeleteButton from '../shared/DeleteButton';
+import { deleteGoal } from '../../actions/goal-actions';
+import ObstacleCard from '../obstacles/ObstacleCard';
+import CreateObstacleForm from '../obstacles/CreateObstacleForm';
+import EditableDate from '../shared/EditableDate';
 
 const classes = theme => ({
   mainContentContainer: {

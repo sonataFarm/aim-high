@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-
-import Modal from './Modal';
+import Modal from '../shared/Modal';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
@@ -26,8 +25,6 @@ const useStyles = makeStyles({
 });
 
 const LandingPage = () => {
-  const tema = useTheme();
-  console.log(tema);
   const classes = useStyles();
 
   const [ loginModalOpen, setLoginModalOpen ] = useState(false);
@@ -39,7 +36,6 @@ const LandingPage = () => {
       <Grid container style={{ height: '100%' }}>
         <Grid item xs={false} md={2} />
         <Grid 
-          // style={{ border: '1px solid red', height: '100%' }}
           container
           item 
           xs={10} 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Divider, TextField, Typography, useScrollTrigger, withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { register } from '../actions/session-actions';
+import { register } from '../../actions/session-actions';
 
 const styles = theme => ({
   formContainer: {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux';
-import { fetchAllGoals } from '../actions/goal-actions';
-import { fetchAllVisions } from '../actions/vision-actions';
+import { fetchAllGoals } from '../../actions/goal-actions';
+import { fetchAllVisions } from '../../actions/vision-actions';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
-import Navbar from './Navbar';
-import { logOut } from '../actions/session-actions';
+import Navbar from './navbar/Navbar'; 
+import { logOut } from '../../actions/session-actions';
 
 const navbarHeight = 50;
 
