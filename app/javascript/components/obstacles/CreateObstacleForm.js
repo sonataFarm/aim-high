@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button, IconButton, makeStyles, TextField } from '@material-ui/core';
-import { connect } from 'react-redux';
-import { createObstacle } from '../../actions/obstacle-actions';
 import { AddCircle } from '@material-ui/icons';
+import { createObstacle } from '../../actions/obstacle-actions';
 
 const useStyles = makeStyles(theme => ({
   container: {

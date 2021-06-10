@@ -4,19 +4,13 @@ import { Link, withRouter } from 'react-router-dom';
 import moment from 'moment';
 import { CircularProgress, Divider, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
-import { updateGoal } from '../../actions/goal-actions';
-import { selectReviewsByGoal, selectObstaclesByGoal } from '../../selectors/selectors';
-import Accordion from '../shared/Accordion';
-import EditableTextField from '../shared/EditableTextField';
-import CardGrid from '../shared/CardGrid';
-import ReviewCard from '../reviews/ReviewCard';
-import CreateReviewForm from '../reviews/CreateReviewForm';
 import { RemoveCircle } from '@material-ui/icons';
-import DeleteButton from '../shared/DeleteButton';
-import { deleteGoal } from '../../actions/goal-actions';
-import ObstacleCard from '../obstacles/ObstacleCard';
-import CreateObstacleForm from '../obstacles/CreateObstacleForm';
-import EditableDate from '../shared/EditableDate';
+import { updateGoal, deleteGoal } from '../../actions/goal-actions';
+import { selectReviewsByGoal, selectObstaclesByGoal } from '../../selectors/selectors';
+import { Accordion } from '../shared';
+import { CardGrid, DeleteButton, EditableDate, EditableTextField } from '../shared';
+import { ReviewCard, CreateReviewForm } from '../reviews';;
+import { ObstacleCard, CreateObstacleForm } from '../obstacles';
 
 const classes = theme => ({
   mainContentContainer: {

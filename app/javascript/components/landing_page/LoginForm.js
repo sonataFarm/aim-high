@@ -1,7 +1,6 @@
 import React from 'react';
-import { Button, TextField, Typography, withStyles } from '@material-ui/core';
-
 import { connect } from 'react-redux';
+import { Button, TextField, Typography, withStyles } from '@material-ui/core';
 import { logIn } from '../../actions/session-actions';
 
 const styles = theme => ({

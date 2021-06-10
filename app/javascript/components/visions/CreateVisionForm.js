@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Card, CardContent, CircularProgress, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography, withStyles } from '@material-ui/core';
-import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Add, RemoveCircle } from '@material-ui/icons';
-import moment from 'moment';
+import { TextField, Typography, withStyles } from '@material-ui/core';
 import { createVision } from '../../actions/vision-actions';
-import { denormalizeEntities } from '../../util/normalize';
-import StepperForm from '../shared/StepperForm';
-import StepperFormContent from '../shared/StepperFormContent';
+import { StepperForm, StepperFormContent } from '../shared';
 
 const styles = {
   container: {

@@ -1,7 +1,7 @@
+import React from 'react';
+import moment from 'moment';
 import { Typography, withStyles } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import moment from 'moment';
-import React from 'react';
 
 const styles = theme => ({
   body: {

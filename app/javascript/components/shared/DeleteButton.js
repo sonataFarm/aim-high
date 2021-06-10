@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { Button, IconButton, makeStyles, Typography } from '@material-ui/core';
 import { Clear, HighlightOff } from '@material-ui/icons';
-import React, { useState } from 'react';
 import Modal from './Modal';
 
 const useStyles = makeStyles(theme => ({

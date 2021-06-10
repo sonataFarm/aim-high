@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import { withRouter } from 'react-router-dom';
+import { Card, CardContent, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import EditableTextField from '../shared/EditableTextField';
-import { updateObstacle, deleteObstacle } from '../../actions/obstacle-actions';
-import DeleteButton from '../shared/DeleteButton';
 import { Clear } from '@material-ui/icons';
-import { Divider } from '@material-ui/core';
+import { updateObstacle, deleteObstacle } from '../../actions/obstacle-actions';
+import { EditableTextField, DeleteButton } from '../shared';
 
 const useStyles = makeStyles({
   root: {

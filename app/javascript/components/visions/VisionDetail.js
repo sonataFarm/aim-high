@@ -2,15 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { CircularProgress, Divider, Typography } from '@material-ui/core';
+import { RemoveCircle } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { denormalizeEntities } from '../../util/normalize';
 import { updateVision, deleteVision } from '../../actions/vision-actions';
-import Accordion from '../shared/Accordion';
+import { Accordion, CardGrid, DeleteButton, EditableTextField } from '../shared';
 import GoalCard from '../goals/GoalCard';
-import CardGrid from '../shared/CardGrid';
-import EditableTextField from '../shared/EditableTextField';
-import DeleteButton from '../shared/DeleteButton';
-import { RemoveCircle } from '@material-ui/icons';
 
 const classes = theme => ({
   mainContentContainer: {

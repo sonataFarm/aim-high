@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, makeStyles, TextField } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { Button, makeStyles, TextField } from '@material-ui/core';
 import { createReview } from '../../actions/review-actions';
 
 const useStyles = makeStyles(theme => ({

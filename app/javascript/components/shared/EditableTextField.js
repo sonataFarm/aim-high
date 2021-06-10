@@ -1,5 +1,5 @@
-import { TextField, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
+import { TextField, Typography, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   body: {

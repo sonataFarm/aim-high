@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Button, Grid, makeStyles, Typography } from '@material-ui/core';
 import Modal from '../shared/Modal';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
