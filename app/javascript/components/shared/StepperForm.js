@@ -32,7 +32,7 @@ class StepperForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeStep: 0 };
+    this.state = { activeStep: 3 };
   }
 
   handleNext = () => {

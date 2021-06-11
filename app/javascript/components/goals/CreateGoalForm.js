@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 import moment from 'moment';
-import { Button, Card, CardContent, FormControl, IconButton, InputLabel, MenuItem, Select, TextField, Typography, withStyles } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, TextField, Typography, withStyles } from '@material-ui/core';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Add, RemoveCircle } from '@material-ui/icons';
 import { createGoal } from '../../actions/goal-actions';
 import { denormalizeEntities } from '../../util/normalize';
 import { StepperForm, StepperFormContent } from '../shared';
+import CreateObstaclesForm from '../obstacles/CreateObstaclesForm';
 
 const styles = {
   container: {
@@ -17,10 +17,6 @@ const styles = {
   header: {
     marginTop: '30px',
     marginBottom: '0'
-  },
-  root: {
-    width: '95%',
-    margin: '10px'
   },
   visionSelect: {
     minWidth: '300px'
@@ -32,7 +28,6 @@ class CreateGoalForm extends React.Component {
     super(props);
 
     this.state = {
-      visionId: this.props.visions.length ? this.props.visions[0].id : null,
       title: '',
       description: '',
       motivation: '',
@@ -42,7 +37,8 @@ class CreateGoalForm extends React.Component {
       monitoring: '',
       evidence: '',
       satisfaction: '',
-      obstacles: [ { description: '', solution: '' } ]
+      obstacles: [ { description: '', solution: '' } ],
+      visionId: this.props.visions.length ? this.props.visions[0].id : null
     };
   }
 
@@ -52,16 +48,16 @@ class CreateGoalForm extends React.Component {
     }
   }
 
-  handleInputChange = (event, field) => {
-    event.preventDefault && event.preventDefault();
+  handleInputChange = (e, field) => {
+    e.preventDefault && e.preventDefault();
 
     let value;
     if (field === 'visionId') {
-      value = event.target.value;
+      value = e.target.value;
     } else if (field === 'deadline') {
-      value = event;      
+      value = e;      
     } else {
-      value = event.currentTarget.value;
+      value = e.currentTarget.value;
     }
 
     this.setState({ [field]: value });
@@ -77,9 +73,7 @@ class CreateGoalForm extends React.Component {
     e.preventDefault();
     const { obstacles } = this.state;
     this.setState({ 
-      obstacles: [ 
-        ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) 
-      ]
+      obstacles: [ ...obstacles.slice(0, idx), ...obstacles.slice(idx + 1) ]
     });
   };
 
@@ -200,50 +194,12 @@ class CreateGoalForm extends React.Component {
       (
         <StepperFormContent>
           <Typography variant="subtitle1">What are one or more potential obstacles? How will you solve them?</Typography>
-          { 
-            this.state.obstacles.map((o, idx) => (
-              <Card key={idx} variant="outlined" className={this.props.classes.root}>
-                <CardContent>
-                  <div style={{ display: "flex", justifyContent: 'space-between' }}>
-                    <Typography variant="h6" align="center" gutterBottom>Obstacle</Typography>
-                    <IconButton onClick={e => this.handleRemoveObstacle(e, idx) } >
-                      <RemoveCircle color="error" />
-                    </IconButton>
-                  </div>
-                  <TextField 
-                    width=""
-                    type="text"
-                    variant="outlined"
-                    label="Obstacle"
-                    required
-                    value={this.state.obstacles[idx].description}
-                    multiline rows={2}
-                    fullWidth
-                    onChange={e => this.handleObstacleChange(e, 'description', idx)}
-                  />  
-                  <TextField 
-                    type="text"
-                    variant="outlined"
-                    label="Solution"
-                    required
-                    value={this.state.obstacles[idx].solution}
-                    fullWidth
-                    multiline rows={2}
-                    onChange={e => this.handleObstacleChange(e, "solution", idx)}
-                  />  
-                </CardContent>
-              </Card>
-            ))
-          }
-          <Button 
-            color="primary" 
-            variant="contained"
-            onClick={(e) => this.handleAddObstacle(e)}
-            style={{ marginBottom: '10px' }}
-            startIcon={<Add />}
-          >
-              Add Another Obstacle
-            </Button> 
+          <CreateObstaclesForm
+            obstacles={this.state.obstacles}
+            onAddObstacle={this.handleAddObstacle}
+            onRemoveObstacle={this.handleRemoveObstacle}
+            onObstacleChange={this.handleObstacleChange}
+          />
         </StepperFormContent>
       ),
       (
