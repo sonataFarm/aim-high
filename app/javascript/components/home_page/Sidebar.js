@@ -82,7 +82,7 @@ class Sidebar extends React.Component {
     const { visions, goals } = this.props;
     const { pathname } = window.location;
     
-    const renderVisions = () => {
+    const renderVisionsAndGoals = () => {
       const selectedVision = pathname.match(/^\/visions\/([\d]+)$/);
 
       return (
@@ -145,7 +145,7 @@ class Sidebar extends React.Component {
           </List>
           <Divider />
           <List disablePadding>
-            { renderVisions() }
+            { renderVisionsAndGoals() }
           </List>
           <Divider />
         </Drawer>

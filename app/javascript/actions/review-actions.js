@@ -1,8 +1,9 @@
 import api from '../util/api-util';
 import { fetchGoal } from './goal-actions';
 
-export const RECEIVE_REVIEW = 'RECEIVE_REVIEW';
-export const REMOVE_REVIEW = 'REMOVE_REVIEW';
+export const 
+  RECEIVE_REVIEW = 'RECEIVE_REVIEW',
+  REMOVE_REVIEW = 'REMOVE_REVIEW';
 
 export const updateReview = review => dispatch => (
   api.updateReview(review).then(

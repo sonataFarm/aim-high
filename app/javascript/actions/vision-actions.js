@@ -2,10 +2,11 @@ import api from '../util/api-util';
 import { receiveErrors } from './ui-actions';
 import { removeGoal } from './goal-actions';
 
-export const RECEIVE_VISION = 'RECEIVE_VISION';
-export const RECEIVE_VISIONS = 'RECEIVE_VISIONS';
-export const REMOVE_VISION = 'REMOVE_VISION';
-export const BEGIN_LOADING_VISIONS = 'BEGIN_LOADING_VISIONS';
+export const 
+  RECEIVE_VISION = 'RECEIVE_VISION',
+  RECEIVE_VISIONS = 'RECEIVE_VISIONS',
+  REMOVE_VISION = 'REMOVE_VISION',
+  BEGIN_LOADING_VISIONS = 'BEGIN_LOADING_VISIONS';
 
 export const fetchAllVisions = () => dispatch => {
   dispatch(beginLoadingVisions());

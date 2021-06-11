@@ -1,10 +1,11 @@
 import api from '../util/api-util';
 import { receiveErrors } from './ui-actions';
 
-export const RECEIVE_GOAL = 'RECEIVE_GOAL';
-export const RECEIVE_GOALS = 'RECEIVE_GOALS';
-export const REMOVE_GOAL = 'REMOVE_GOAL';
-export const BEGIN_LOADING_GOALS = 'BEGIN_LOADING_GOALS';
+export const 
+  RECEIVE_GOAL = 'RECEIVE_GOAL',
+  RECEIVE_GOALS = 'RECEIVE_GOALS',
+  REMOVE_GOAL = 'REMOVE_GOAL',
+  BEGIN_LOADING_GOALS = 'BEGIN_LOADING_GOALS';
 
 export const fetchAllGoals = () => dispatch => {
   dispatch(beginLoadingGoals());

@@ -1,8 +1,9 @@
 import api from '../util/api-util';
 import { receiveErrors } from './ui-actions';
 
-export const RECEIVE_OBSTACLE = 'RECEIVE_OBSTACLE'; 
-export const REMOVE_OBSTACLE = 'REMOVE_OBSTACLE';
+export const 
+  RECEIVE_OBSTACLE = 'RECEIVE_OBSTACLE',
+  REMOVE_OBSTACLE = 'REMOVE_OBSTACLE';
 
 export const createObstacle = obstacle => dispatch => (
   api.createObstacle(obstacle).then(

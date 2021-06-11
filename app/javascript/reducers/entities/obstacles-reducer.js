@@ -12,7 +12,7 @@ const ObstaclesReducer = (state = {}, action) => {
       return { ...state, [obstacle.id]: obstacle };
     case REMOVE_OBSTACLE:
       const id = action.payload;
-      return _.pickBy(state, (v, k) => v.id !== id);
+      return _.pickBy(state, (v) => v.id !== id);
     case RECEIVE_GOAL:
       obstacles = action.payload.obstacles;
       return { ...state, ...normalizeEntities(obstacles) };

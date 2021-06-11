@@ -99,7 +99,6 @@ class GoalDetail extends React.Component {
 
   handleUpdate = key => val => {
     const { id } = this.props.goal;
-    
     this.props.dispatch(updateGoal({ id, [key]: val }));
   };
 

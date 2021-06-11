@@ -54,7 +54,6 @@ const GoalCard = ({ goal, history }) => {
         <Button 
           size="small" 
           color="primary" 
-          // variant="outlined" 
           onClick={handleClick}
         >
           View Goal

@@ -27,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ username }) => {
   const classes = useStyles();
-  const handleAddGoalClick = (e) => { console.log(e) };
-  const handleAccountIconClick = () => { console.log('click') };
+  
   return (
     <div className={classes.container}>
       <div>
